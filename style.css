@@ -1,11 +1,108 @@
-.navbar-stylr {
-    background-color: rgb(0, 54, 82);
+/* Global Page Style */
+
+body{
+font-family: Arial, sans-serif;
+margin:0;
+padding:0;
+background:#ffffff;
 }
 
-#feature {
-    background-color: rgba(50, 192, 116, 0.345);
+
+
+header{
+background:#f4f4f4;
+padding:20px;
+text-align:center;
 }
 
-#contact-form {
-    background: rgba(50, 192, 116, 0.345);
+
+
+nav{
+background:#003652;
+padding:12px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-right:18px;
+font-weight:bold;
+}
+
+nav a:hover{
+color:#00c896; 
+}
+
+table{
+width:85%;
+margin:25px auto;
+border-collapse:collapse;
+}
+
+th, td{
+border:1px solid #333;
+padding:10px;
+}
+
+th{
+background:#003652;
+color:white;
+text-align:center;
+}
+
+
+tr:nth-child(even){
+background:#f2f2f2;
+}
+
+
+
+tr:hover{
+background:#d9f5ec;
+}
+
+
+#search-submit{
+background:#00c896;
+color:white;
+padding:10px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+#search-submit:hover{
+background:#009e74;
+}
+
+
+
+input[type="checkbox"]{
+margin-right:6px;
+}
+
+
+
+input[type="text"], select{
+width:90%;
+padding:8px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+
+
+footer{
+text-align:center;
+margin-top:40px;
+padding:12px;
+background:#003652;
+color:white;
+}
+.card{
+background:white;
+padding:15px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }

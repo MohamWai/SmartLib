@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>SmartLib - Book Search</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* Internal CSS */
+
+        .section-title{
+        text-align:center;
+        color:#1e3a5f;
+        margin-top:30px;
+        }
+
+        .form-container{
+        width:60%;
+        margin:auto;
+        padding:20px;
+        border:1px solid #ccc;
+        border-radius:6px;
+        background:#f9f9f9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>SmartLib Digital Library</h1>
+
+        <nav>
+
+            <a href="index.html">Home</a> <a href="search.html">Search</a> <a href="categories.html">Categories</a> <a href="account.html">My Account</a> <a href="reports.html">Reports</a> <a href="admin.html">Admin</a> <a href="about.html">About</a> <a href="contact.html">Contact</a>
+
+        </nav>
+
+    </header>
+
+    <hr>
+
+    <h2 class="section-title">Advanced Book Search</h2>
+
+    <div class="form-container">
+
+        <form action="https://httpbin.org/get" method="get">
+
+            <label>Book Title</label><br> <input type="text" name="title" placeholder="Enter book title"><br><br>
+
+            <label>Category</label><br> <select name="category">
+
+                <option>Science</option>
+                <option>Technology</option>
+                <option>History</option>
+                <option>Business</option>
+                <option>Literature</option>
+
+            </select>
+
+            <br><br>
+
+            <label>Availability</label><br>
+
+            <input type="checkbox" name="ebook"> eBook Only<br> <input type="checkbox" name="available"> Available Now
+
+            <br><br>
+
+            <button id="search-submit">Search Books</button>
+
+        </form>
+
+    </div>
+
+    <hr>
+
+    <h2 class="section-title">Search Results</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Status</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+            <td>Introduction to Algorithms</td>
+            <td>Thomas Cormen</td>
+            <td>Technology</td>
+            <td>Available</td>
+            </tr>
+
+            <tr>
+            <td colspan="4">
+            A widely used computer science textbook covering algorithms, data structures, and problem solving techniques.
+            </td>
+            </tr>
+
+            <tr>
+            <td>Modern Physics</td>
+            <td>Halliday</td>
+            <td>Science</td>
+            <td>Borrowed</td>
+            </tr>
+
+            <tr>
+            <td colspan="4">
+            This book explains the fundamental concepts of modern physics including relativity and quantum theory.
+            </td>
+            </tr>
+
+            <tr>
+            <td>Business Management</td>
+            <td>John Smith</td>
+            <td>Business</td>
+            <td>Available</td>
+            </tr>
+
+            <tr>
+            <td colspan="4">
+            Introduction to leadership, management strategies and organizational planning.
+            </td>
+            </tr>
+
+        </tbody>
+
+        </table>
+
+    <footer>
+
+    <p>© 2026 SmartLib Library System</p>
+
+    </footer>
+
+</body>
+</html>
