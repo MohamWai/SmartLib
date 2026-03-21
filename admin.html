@@ -28,13 +28,10 @@
             <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
             <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+            <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
             <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
             <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
           </ul>
-          <form class="d-flex" role="search" action="search.html" method="get">
-            <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" />
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
@@ -46,7 +43,11 @@
             <div class="card-body p-4 p-md-5">
               <h1 class="h2 text-center mb-4 section-title fw-bold">Admin Panel</h1>
               <p class="text-secondary text-center small mb-4">Add a new title to the catalog (demo form).</p>
-              <form action="https://httpbin.org/get" method="get">
+              <form
+                action="https://httpbin.org/post"
+                method="post"
+                enctype="multipart/form-data"
+              >
                 <div class="mb-3">
                   <label class="form-label" for="book-title">Book title</label>
                   <input type="text" class="form-control" id="book-title" name="book-title" required />
