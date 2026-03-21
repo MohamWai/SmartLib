@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartLib — My Account</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      /* Dashboard-specific look (slightly distinct from informational pages) */
+      .dashboard-page {
+        background: linear-gradient(
+          160deg,
+          rgba(0, 54, 82, 0.06) 0%,
+          rgba(255, 255, 255, 1) 38%,
+          rgba(0, 200, 150, 0.05) 100%
+        );
+        min-height: 100vh;
+      }
+
+      .dashboard-page .dashboard-shell {
+        background-color: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 54, 82, 0.12);
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 54, 82, 0.08);
+      }
+
+      .dashboard-page .dashboard-kicker {
+        color: rgba(0, 54, 82, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .dashboard-page .dashboard-title {
+        color: rgb(0, 54, 82);
+      }
+
+      /* Navigation: link decoration + hover (pseudo-class) */
+      .dashboard-page .navbar-nav .nav-link {
+        text-decoration: none;
+        opacity: 0.88;
+        transition: color 0.2s ease, opacity 0.2s ease, text-decoration-color 0.2s ease;
+      }
+
+      .dashboard-page .navbar-nav .nav-link:hover {
+        color: #7fe8c8 !important;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+        opacity: 1;
+      }
+
+      .dashboard-page .navbar-nav .nav-link.active {
+        opacity: 1;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Table #3 — borrowing history: padding + zebra striping (pseudo-class) */
+      .dashboard-page table#table-3-borrowing-history {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+      }
+
+      .dashboard-page table#table-3-borrowing-history caption {
+        caption-side: top;
+        padding-bottom: 0.75rem;
+        font-weight: 600;
+        color: rgb(0, 54, 82);
+        text-align: left;
+      }
+
+      .dashboard-page table#table-3-borrowing-history th,
+      .dashboard-page table#table-3-borrowing-history td {
+        border: 1px solid rgba(0, 54, 82, 0.2);
+        padding: 14px 18px;
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      .dashboard-page table#table-3-borrowing-history thead th {
+        background-color: rgb(0, 54, 82);
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .dashboard-page table#table-3-borrowing-history tbody tr:nth-child(even) {
+        background-color: rgba(0, 54, 82, 0.045);
+      }
+
+      .dashboard-page table#table-3-borrowing-history tbody tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      .dashboard-page .status-ok {
+        color: rgb(0, 130, 85);
+        font-weight: 600;
+      }
+
+      .dashboard-page .status-warn {
+        color: rgb(180, 120, 0);
+        font-weight: 600;
+      }
+
+      .dashboard-page .status-late {
+        color: rgba(180, 40, 40, 0.92);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body class="dashboard-page">
+    <nav class="navbar navbar-expand-lg navbar-style navbar-dark">
+      <div class="container">
+        <a href="index.html" class="navbar-brand">
+          <img
+            src="./assets/SmartLib_logo.jpg"
+            alt="Logo"
+            width="40"
+            height="30"
+            class="d-inline-block align-text-top"
+          />
+          SmartLib</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="search.html" class="nav-link">Search</a>
+            </li>
+            <li class="nav-item">
+              <a href="reports.html" class="nav-link">Reports</a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="signup.html" class="nav-link">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a href="account.html" class="nav-link active" aria-current="page">Account</a>
+            </li>
+            <li class="nav-item">
+              <a href="admin.html" class="nav-link">Admin</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-5">
+      <div class="dashboard-shell p-4 p-md-5 mb-4">
+        <p class="dashboard-kicker mb-1">Patron dashboard</p>
+        <h1 class="dashboard-title display-6 fw-bold mb-2">My Account</h1>
+        <p class="text-secondary mb-0">
+          Welcome back. Below is a snapshot of your borrowing activity.
+        </p>
+      </div>
+
+      <div class="dashboard-shell p-4 p-md-5">
+        <h2 class="h5 fw-semibold dashboard-title mb-3">Table #3 — Borrowing history</h2>
+        <div class="table-responsive">
+          <table id="table-3-borrowing-history">
+            <caption>
+              Recent loans (due dates and status)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Author</th>
+                <th scope="col">Due date</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>The Design of Everyday Things</td>
+                <td>Don Norman</td>
+                <td>Apr 2, 2025</td>
+                <td class="status-ok">Checked out</td>
+              </tr>
+              <tr>
+                <td>Clean Code</td>
+                <td>Robert C. Martin</td>
+                <td>Mar 28, 2025</td>
+                <td class="status-warn">Due soon</td>
+              </tr>
+              <tr>
+                <td>Introduction to Algorithms</td>
+                <td>Cormen et al.</td>
+                <td>Mar 15, 2025</td>
+                <td class="status-late">Overdue</td>
+              </tr>
+              <tr>
+                <td>Database System Concepts</td>
+                <td>Silberschatz et al.</td>
+                <td>Feb 10, 2025</td>
+                <td class="status-ok">Returned</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-white py-3" style="background-color: rgb(0, 54, 82);">
+      <div class="container text-center">
+        <p class="small mb-0">
+          <a href="about.html" class="text-white text-decoration-none">About</a>
+          &nbsp;·&nbsp;
+          <a href="contact.html" class="text-white text-decoration-none">Contact</a>
+          &nbsp;·&nbsp;
+          © 2025 Smart Lib Management. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
