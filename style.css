@@ -1,4 +1,4 @@
-/* Global Page Style */
+
 
 body{
 font-family: Arial, sans-serif;
@@ -107,7 +107,6 @@ border-radius:8px;
 box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Bootstrap layout — matches SmartLib chrome (nav / sections) */
 .navbar-style {
   background-color: rgb(0, 54, 82) !important;
 }
@@ -126,7 +125,7 @@ box-shadow:0 2px 8px rgba(0,0,0,0.1);
   box-shadow: 0 0.45rem 1rem rgba(0, 54, 82, 0.18);
 }
 
-/* Admin add-book panel (from integrated folder-4 styles, brand-aligned) */
+
 .admin-page .card {
   border: 1px solid rgba(0, 54, 82, 0.15);
   box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.08);
