@@ -1,0 +1,107 @@
+.admin-container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+
+.admin-title {
+    font-size: 30px;
+    color: #4E342E;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+
+.admin-layout {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap; 
+}
+
+
+.admin-sidebar {
+    flex: 1 1 250px; 
+    background: #f7f1e9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #c8b7a6;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-sidebar ul li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #efebe9;
+    border-left: 5px solid #5D4037;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+.admin-sidebar ul li:hover {
+    background: #d7ccc8;
+}
+
+
+.admin-card {
+    flex: 3 1 500px; 
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    border: 2px solid #c7a27a;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+.admin-card input[type="text"],
+.admin-card textarea,
+.admin-card input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #bfa58e;
+    border-radius: 5px;
+}
+
+
+.admin-card input:focus,
+.admin-card textarea:focus {
+    border-color: #5D4037;
+    outline: none;
+}
+
+
+.admin-card input[type="submit"] {
+    background: #5D4037;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.admin-card input[type="submit"]:hover {
+    background: #3e2723;
+}
+
+
+.footer p {
+    color: #5D4037;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.logo-img {
+    width: 150px;
+    display: block;
+    margin: auto;
+}
+

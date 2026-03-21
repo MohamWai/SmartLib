@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
+    <a class="navbar-brand" href="#">SmartLib</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+    <li class="nav-item"><a class="nav-link" href="Search.html">Search</a></li>
+    <li class="nav-item"><a class="nav-link" href="categories.html">categories</a></li>
+    <li class="nav-item"><a class="nav-link" href="account.html">Account</a></li>
+    <li class="nav-item"><a class="nav-link" href="reports.html">reports</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">Admin</a></li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+
+            
+            <div class="card shadow">
+
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Admin Panel</h2>
+
+                    <form action="https://httpbin.org/get" method="GET">
+
+                        <div class="mb-3">
+                            <label class="form-label">Book Title</label>
+                            <input type="text" class="form-control" name="book-title" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Author</label>
+                            <input type="text" class="form-control" name="author" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Summary</label>
+                            <textarea class="form-control" name="summary" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Cover Image</label>
+                            <input type="file" class="form-control" name="cover-image">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Add Book</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2026 SmartLib. All rights reserved.</p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
