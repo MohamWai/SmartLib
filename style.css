@@ -106,3 +106,46 @@ padding:15px;
 border-radius:8px;
 box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* Bootstrap layout — matches SmartLib chrome (nav / sections) */
+.navbar-style {
+  background-color: rgb(0, 54, 82) !important;
+}
+
+.section-title {
+  color: rgb(0, 54, 82);
+}
+
+.feature-card {
+  border: none;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 54, 82, 0.12);
+  transition: box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 0.45rem 1rem rgba(0, 54, 82, 0.18);
+}
+
+/* Admin add-book panel (from integrated folder-4 styles, brand-aligned) */
+.admin-page .card {
+  border: 1px solid rgba(0, 54, 82, 0.15);
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.admin-page .btn-brand {
+  background-color: rgb(0, 54, 82);
+  border-color: rgb(0, 54, 82);
+  color: #fff;
+}
+
+.admin-page .btn-brand:hover {
+  background-color: rgb(0, 40, 62);
+  border-color: rgb(0, 40, 62);
+  color: #fff;
+}
+
+.about-hero-img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+}
