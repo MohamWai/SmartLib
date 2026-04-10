@@ -1,29 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SmartLib - Admin Panel</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body class="admin-page">
-    <nav class="navbar navbar-expand-lg navbar-style navbar-dark">
-      <div class="container">
-        <a href="index.html" class="navbar-brand">
-          <img src="./assets/SmartLib_logo.jpg" alt="Logo" width="40" height="30" class="d-inline-block align-text-top" />
-          SmartLib</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmartLib - Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a href="index.html" class="navbar-brand">
+      <img src="./assets/SmartLib_logo.jpg" width="40" height="30" class="me-2">
+      SmartLib
+    </a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
             <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
@@ -31,61 +32,115 @@
             <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
             <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
             <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="card shadow-sm">
-            <div class="card-body p-4 p-md-5">
-              <h1 class="h2 text-center mb-4 section-title fw-bold">Admin Panel</h1>
-              <p class="text-secondary text-center small mb-4">Add a new title to the catalog (demo form).</p>
-              <form
-                action="https://httpbin.org/post"
-                method="post"
-                enctype="multipart/form-data"
-              >
-                <div class="mb-3">
-                  <label class="form-label" for="book-title">Book title</label>
-                  <input type="text" class="form-control" id="book-title" name="book-title" required />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="author">Author</label>
-                  <input type="text" class="form-control" id="author" name="author" required />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="summary">Summary</label>
-                  <textarea class="form-control" id="summary" name="summary" rows="3"></textarea>
-                </div>
-                <div class="mb-4">
-                  <label class="form-label" for="cover-image">Cover image</label>
-                  <input type="file" class="form-control" id="cover-image" name="cover-image" accept="image/*" />
-                </div>
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-brand btn-lg">Add book</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <footer class="text-white py-3" style="background-color: rgb(0, 54, 82);">
-      <div class="container text-center">
-        <p class="small mb-0">
-          <a href="about.html" class="text-white text-decoration-none">About</a>
-          &nbsp;·&nbsp;
-          <a href="contact.html" class="text-white text-decoration-none">Contact</a>
-          &nbsp;·&nbsp;
-          © 2025 SmartLib Management. All rights reserved.
-        </p>
-      </div>
-    </footer>
+<div class="container my-4">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
+<h2 class="text-center mb-4">Admin Dashboard</h2>
+
+<!-- EXISTING ADMIN FEATURE (UPLOAD / FORM) -->
+<div class="card p-3 mb-4">
+    <h5 class="mb-3">Add New Book (Upload)</h5>
+
+    <input id="uTitle" class="form-control mb-1" placeholder="Book Title">
+    <div id="uTitleError" class="text-danger mb-2"></div>
+
+    <input id="uAuthor" class="form-control mb-1" placeholder="Author">
+    <div id="uAuthorError" class="text-danger mb-2"></div>
+
+    <textarea id="uSummary" class="form-control mb-1" placeholder="Book Summary"></textarea>
+    <div id="uSummaryError" class="text-danger mb-2"></div>
+
+    <input id="uFile" type="file" class="form-control mb-2">
+    <div id="uFileError" class="text-danger mb-2"></div>
+
+    <button id="uploadBtn" class="btn btn-secondary w-100">
+        Upload Book
+    </button>
+</div>
+
+
+<div class="row">
+
+<!-- BOOK MANAGEMENT -->
+<div class="col-md-6">
+    <div class="card p-3 mb-4">
+        <h5 class="text-center mb-3">Manage Books</h5>
+
+        <input id="pName" class="form-control mb-1" placeholder="Book Name">
+        <div id="pNameError" class="text-danger mb-2"></div>
+
+        <input id="pPrice" type="number" class="form-control mb-1" placeholder="Price">
+        <div id="pPriceError" class="text-danger mb-2"></div>
+
+        <input id="pCat" class="form-control mb-1" placeholder="Category">
+        <div id="pCatError" class="text-danger mb-2"></div>
+
+        <button id="addProductBtn" class="btn btn-primary w-100 mb-3">
+            Add Book
+        </button>
+
+        <table class="table table-bordered table-striped text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="productList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- USER MANAGEMENT -->
+<div class="col-md-6">
+    <div class="card p-3 mb-4">
+        <h5 class="text-center mb-3">Manage Users</h5>
+
+        <input id="sName" class="form-control mb-1" placeholder="User Name">
+        <div id="sNameError" class="text-danger mb-2"></div>
+
+        <input id="sAge" type="number" class="form-control mb-1" placeholder="Age">
+        <div id="sAgeError" class="text-danger mb-2"></div>
+
+        <input id="sMajor" class="form-control mb-1" placeholder="Role">
+        <div id="sMajorError" class="text-danger mb-2"></div>
+
+        <button id="addStudentBtn" class="btn btn-success w-100 mb-3">
+            Add User
+        </button>
+
+        <table class="table table-bordered table-striped text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentList"></tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <div class="container">
+    <p class="small mb-0">© 2025 SmartLib Management</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
