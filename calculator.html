@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartLib - Calculator</title>
+
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a href="index.html" class="navbar-brand">
+      <img src="./assets/SmartLib_logo.jpg" width="40" height="30" class="me-2">
+      SmartLib
+    </a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+        <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
+        <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
+        <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
+        <li class="nav-item"><a href="calculator.html" class="nav-link">Calculator</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4 fw-bold">SmartLib Calculators</h2>
+
+  <div class="row justify-content-center">
+
+
+    <div class="col-md-6 mb-4">
+      <div class="card shadow p-4">
+        <h4 class="text-center mb-3">📘 Late Return Fine Calculator</h4>
+
+        <label class="form-label fw-semibold">Days Late</label>
+        <input id="daysLate" type="number" class="form-control mb-2" placeholder="Enter number of late days">
+
+        <label class="form-label fw-semibold">User Age</label>
+        <input id="userAge" type="number" class="form-control mb-2" placeholder="Enter age">
+
+        <label class="form-label fw-semibold">Book Type</label>
+        <select id="bookType" class="form-select mb-3">
+          <option value="normal">Normal Book</option>
+          <option value="reference">Reference Book</option>
+          <option value="novel">Novel</option>
+        </select>
+
+        <button onclick="calcFine()" class="btn btn-primary w-100 mb-3">Calculate Fine</button>
+
+        <div class="alert alert-info text-center fw-bold" id="fineResult">Your fine will appear here</div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 mb-4">
+      <div class="card shadow p-4">
+        <h4 class="text-center mb-3">💰 Book Purchase Calculator</h4>
+
+        <label class="form-label fw-semibold">Book Price (OMR)</label>
+        <input id="bookPrice" type="number" class="form-control mb-2" placeholder="Price of one book">
+
+        <label class="form-label fw-semibold">Quantity</label>
+        <input id="bookQty" type="number" class="form-control mb-2" placeholder="How many books?">
+
+        <label class="form-label fw-semibold">Are you a Student?</label>
+        <select id="isStudent" class="form-select mb-2">
+          <option value="no">No</option>
+          <option value="yes">Yes (10% discount)</option>
+        </select>
+
+        <label class="form-label fw-semibold">Extra: Gift Wrapping?</label>
+        <select id="giftWrap" class="form-select mb-3">
+          <option value="no">No</option>
+          <option value="yes">Yes (+0.200 OMR per book)</option>
+        </select>
+
+        <button onclick="calcPurchase()" class="btn btn-success w-100 mb-3">Calculate Cost</button>
+
+        <div class="alert alert-warning text-center fw-bold" id="purchaseResult">
+          Your total cost will appear here
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="small mb-0">© 2026 SmartLib Management</p>
+</footer>
+
+
+<script>
+/* -----------------------------------------
+        Late Return Fine Calculator
+   -----------------------------------------
+   This function calculates the fine based on:
+   - Days Late
+   - User Age
+   - Book Type
+   Additional rules:
+   - 0.250 OMR per late day
+   - If days > 30 → add extra 1 OMR
+   - If age > 60 → discount 10%
+   - If book is "Reference" → add 0.5 OMR
+-------------------------------------------*/
+function calcFine() {
+  let days = Number(document.getElementById("daysLate").value);
+  let age = Number(document.getElementById("userAge").value);
+  let type = document.getElementById("bookType").value;
+
+  let fine = days * 0.250; // Base fine
+
+  if (days > 30) {
+    fine += 1; // Extra charge for very late returns
+  }
+
+  if (type === "reference") {
+    fine += 0.5; // Reference books have higher fees
+  }
+
+  if (age > 60) {
+    fine -= fine * 0.10; // 10% discount for seniors
+  }
+
+  document.getElementById("fineResult").innerText =
+    "Total Fine: " + fine.toFixed(3) + " OMR";
+}
+
+/* -----------------------------------------
+            Book Purchase Calculator
+   -----------------------------------------
+   Rules:
+   - Total = price * quantity
+   - If quantity ≥ 3 → discount 5%
+   - If student → discount 10%
+   - Gift wrap adds +0.200 per book
+-------------------------------------------*/
+function calcPurchase() {
+  let price = Number(document.getElementById("bookPrice").value);
+  let qty = Number(document.getElementById("bookQty").value);
+  let student = document.getElementById("isStudent").value;
+  let wrap = document.getElementById("giftWrap").value;
+
+  let total = price * qty; // Base calculation
+
+  if (qty >= 3) {
+    total -= total * 0.05; // 5% discount for bulk purchase
+  }
+
+  if (student === "yes") {
+    total -= total * 0.10; // Extra 10% discount
+  }
+
+  if (wrap === "yes") {
+    total += qty * 0.200; // Wrapping cost per book
+  }
+
+  document.getElementById("purchaseResult").innerText =
+    "Final Purchase Cost: " + total.toFixed(3) + " OMR";
+}
+</script>
+
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>
