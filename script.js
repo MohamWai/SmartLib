@@ -1,3 +1,132 @@
+//fun page code (jess the sentence)
+const sentences = [
+        "Reading opens the door to new worlds",
+        "A library is a treasure chest of knowledge",
+        "Books are windows to the past",
+        "Every book holds a unique adventure",
+        "Words have the power to change minds",
+      ]
+
+const words_box = document.getElementById("wordsContainer");
+let currentQNum = 0;
+
+function startGame() {
+  let currentQNum = 0;
+  display_words(currentQNum);
+  displayQuestionNum(currentQNum +1)
+  document.getElementById("answer_area").value = ""; // Clear answer area
+  document.getElementById("feadback").innerHTML = ""; // Clear feedback
+}
+
+function displayQuestionNum(qnum){
+  document.getElementById("q_num").textContent = "Q: "+qnum+" of 5"
+}
+
+function nextQuestion() {
+  // First check if the current answer is correct
+  if (checkAns()) {
+    // If correct, move to next question
+    currentQNum++;
+    if (currentQNum < sentences.length) {
+      displayQuestionNum(currentQNum+1)
+      display_words(currentQNum);
+      document.getElementById("answer_area").value = ""; // Clear answer area
+      document.getElementById("feadback").innerHTML = ""; // Clear feedback
+    } else {
+      // Game completed
+      document.getElementById("feadback").innerHTML =
+        '<div class="alert alert-success mt-3">Congratulations! You completed all sentences!</div>';
+    }
+  } else {
+    // If not correct, show message and stay on same question
+    document.getElementById("feadback").innerHTML =
+      '<div class="alert alert-warning mt-3">Please answer correctly before moving to the next question!</div>';
+  }
+}
+
+function display_words(qNum) {
+  words_box.replaceChildren();
+  words = unordringWords(qNum);
+
+  words.forEach((word) => {
+    // Create a box div for each word
+    const box = document.createElement("div");
+    box.className = "btn btn-primary col m-3";
+    box.textContent = word;
+
+    // Add the box to the container
+    words_box.appendChild(box);
+  });
+}
+
+function checkAns() {
+  const currectAns = sentences[currentQNum].trim(); //get the current sentence
+  const playerAns = document.getElementById("answer_area").value.trim();//get what player Entered
+  const feadback = document.getElementById("feadback");
+  if (playerAns == currectAns) { //is secnteces match ??
+    feadback.innerHTML =
+      '<div class="alert alert-success mt-3">Amazing! You hit the currect answer.</div>';
+    return true;
+  } else {
+    feadback.innerHTML =
+      '<div class="alert alert-danger mt-3">Incurrect. Try again! Remember to use all words in correct order.</div>';
+    return false;
+  }
+}
+
+function unordringWords(num) { //randomaize the words order by swaping 
+  words = sentences[num].trim().split(" ");
+
+  for (let i = 0; i < words.length; i++) {
+    const randI = Math.floor(Math.random() * words.length);
+    const randJ = Math.floor(Math.random() * words.length);
+    swap(words, randI, randJ);
+  }
+
+  return words;
+}
+
+function swap(arr, i, j) { 
+  let temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+
+
+
+//this for bootstrab validation styles
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+
+//the time and date in the moving panner
+function updateTime() {
+    const now = new Date();
+    document.getElementById('date').innerText = now.toLocaleDateString();
+    document.getElementById('time').innerText = now.toLocaleTimeString();
+  }
+  updateTime(); // Run once on load
+  setInterval(updateTime, 1000); // Update every second
+
+
+
 // ===== Classes =====
 class Product {
     constructor(name, price, category) {
@@ -219,129 +348,4 @@ document.getElementById("uploadBtn").onclick = function () {
     uFile.value = "";
 };
 
-//fun page code (jess the sentence)
-const sentences = [
-        "Reading opens the door to new worlds",
-        "A library is a treasure chest of knowledge",
-        "Books are windows to the past",
-        "Every book holds a unique adventure",
-        "Words have the power to change minds",
-      ]
 
-const words_box = document.getElementById("wordsContainer");
-let currentQNum = 0;
-
-function startGame() {
-  let currentQNum = 0;
-  display_words(currentQNum);
-  displayQuestionNum(currentQNum +1)
-  document.getElementById("answer_area").value = ""; // Clear answer area
-  document.getElementById("feadback").innerHTML = ""; // Clear feedback
-}
-
-function displayQuestionNum(qnum){
-  document.getElementById("q_num").textContent = "Q: "+qnum+" of 5"
-}
-
-function nextQuestion() {
-  // First check if the current answer is correct
-  if (checkAns()) {
-    // If correct, move to next question
-    currentQNum++;
-    if (currentQNum < sentences.length) {
-      displayQuestionNum(currentQNum+1)
-      display_words(currentQNum);
-      document.getElementById("answer_area").value = ""; // Clear answer area
-      document.getElementById("feadback").innerHTML = ""; // Clear feedback
-    } else {
-      // Game completed
-      document.getElementById("feadback").innerHTML =
-        '<div class="alert alert-success mt-3">Congratulations! You completed all sentences!</div>';
-    }
-  } else {
-    // If not correct, show message and stay on same question
-    document.getElementById("feadback").innerHTML =
-      '<div class="alert alert-warning mt-3">Please answer correctly before moving to the next question!</div>';
-  }
-}
-
-function display_words(qNum) {
-  words_box.replaceChildren();
-  words = unordringWords(qNum);
-
-  words.forEach((word) => {
-    // Create a box div for each word
-    const box = document.createElement("div");
-    box.className = "btn btn-primary col m-3";
-    box.textContent = word;
-
-    // Add the box to the container
-    words_box.appendChild(box);
-  });
-}
-
-function checkAns() {
-  const currectAns = sentences[currentQNum].trim(); //get the current sentence
-  const playerAns = document.getElementById("answer_area").value.trim();//get what player Entered
-  const feadback = document.getElementById("feadback");
-  if (playerAns == currectAns) { //is secnteces match ??
-    feadback.innerHTML =
-      '<div class="alert alert-success mt-3">Amazing! You hit the currect answer.</div>';
-    return true;
-  } else {
-    feadback.innerHTML =
-      '<div class="alert alert-danger mt-3">Incurrect. Try again! Remember to use all words in correct order.</div>';
-    return false;
-  }
-}
-
-function unordringWords(num) { //randomaize the words order by swaping 
-  words = sentences[num].trim().split(" ");
-
-  for (let i = 0; i < words.length; i++) {
-    const randI = Math.floor(Math.random() * words.length);
-    const randJ = Math.floor(Math.random() * words.length);
-    swap(words, randI, randJ);
-  }
-
-  return words;
-}
-
-function swap(arr, i, j) { 
-  let temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
-
-
-
-
-//this for bootstrab validation styles
-(function () {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-
-//the time and date in the moving panner
-function updateTime() {
-    const now = new Date();
-    document.getElementById('date').innerText = now.toLocaleDateString();
-    document.getElementById('time').innerText = now.toLocaleTimeString();
-  }
-  updateTime(); // Run once on load
-  setInterval(updateTime, 1000); // Update every second
