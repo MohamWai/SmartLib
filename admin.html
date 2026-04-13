@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SmartLib - Admin</title>
 
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
 
-<!-- NAVBAR -->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a href="index.html" class="navbar-brand">
@@ -18,20 +19,21 @@
       SmartLib
     </a>
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
-            <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
-            <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
-            <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
-            <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
+        <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+        <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
+        <li class="nav-item"><a href="account.html" class="nav-link">Account</a></li>
+        <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
+        <li class="nav-item"><a href="calculator.html" class="nav-link">Calculator</a></li>
       </ul>
     </div>
   </div>
@@ -39,22 +41,22 @@
 
 <div class="container my-4">
 
-<h2 class="text-center mb-4">Admin Dashboard</h2>
+<h2 class="text-center mb-4 fw-bold">Admin Dashboard</h2>
 
-<!-- EXISTING ADMIN FEATURE (UPLOAD / FORM) -->
-<div class="card p-3 mb-4">
-    <h5 class="mb-3">Add New Book (Upload)</h5>
+<!-- ✅ ADD NEW BOOK -->
+<div class="card p-4 shadow mb-4">
+    <h5 class="mb-3 fw-bold text-center">Add New Book (Upload)</h5>
 
-    <input id="uTitle" class="form-control mb-1" placeholder="Book Title">
+    <input id="uTitle" class="form-control mb-2" placeholder="Book Title">
     <div id="uTitleError" class="text-danger mb-2"></div>
 
-    <input id="uAuthor" class="form-control mb-1" placeholder="Author">
+    <input id="uAuthor" class="form-control mb-2" placeholder="Author">
     <div id="uAuthorError" class="text-danger mb-2"></div>
 
-    <textarea id="uSummary" class="form-control mb-1" placeholder="Book Summary"></textarea>
+    <textarea id="uSummary" class="form-control mb-2" placeholder="Book Summary"></textarea>
     <div id="uSummaryError" class="text-danger mb-2"></div>
 
-    <input id="uFile" type="file" class="form-control mb-2">
+    <input id="uFile" type="file" class="form-control mb-3">
     <div id="uFileError" class="text-danger mb-2"></div>
 
     <button id="uploadBtn" class="btn btn-secondary w-100">
@@ -62,22 +64,16 @@
     </button>
 </div>
 
-
 <div class="row">
 
-<!-- BOOK MANAGEMENT -->
+
 <div class="col-md-6">
-    <div class="card p-3 mb-4">
-        <h5 class="text-center mb-3">Manage Books</h5>
+    <div class="card p-4 shadow mb-4">
+        <h5 class="text-center mb-3 fw-bold">Manage Books</h5>
 
-        <input id="pName" class="form-control mb-1" placeholder="Book Name">
-        <div id="pNameError" class="text-danger mb-2"></div>
-
-        <input id="pPrice" type="number" class="form-control mb-1" placeholder="Price">
-        <div id="pPriceError" class="text-danger mb-2"></div>
-
-        <input id="pCat" class="form-control mb-1" placeholder="Category">
-        <div id="pCatError" class="text-danger mb-2"></div>
+        <input id="pName" class="form-control mb-2" placeholder="Book Name">
+        <input id="pPrice" type="number" class="form-control mb-2" placeholder="Price">
+        <input id="pCat" class="form-control mb-2" placeholder="Category">
 
         <button id="addProductBtn" class="btn btn-primary w-100 mb-3">
             Add Book
@@ -97,19 +93,14 @@
     </div>
 </div>
 
-<!-- USER MANAGEMENT -->
+
 <div class="col-md-6">
-    <div class="card p-3 mb-4">
-        <h5 class="text-center mb-3">Manage Users</h5>
+    <div class="card p-4 shadow mb-4">
+        <h5 class="text-center mb-3 fw-bold">Manage Users</h5>
 
-        <input id="sName" class="form-control mb-1" placeholder="User Name">
-        <div id="sNameError" class="text-danger mb-2"></div>
-
-        <input id="sAge" type="number" class="form-control mb-1" placeholder="Age">
-        <div id="sAgeError" class="text-danger mb-2"></div>
-
-        <input id="sMajor" class="form-control mb-1" placeholder="Role">
-        <div id="sMajorError" class="text-danger mb-2"></div>
+        <input id="sName" class="form-control mb-2" placeholder="User Name">
+        <input id="sAge" type="number" class="form-control mb-2" placeholder="Age">
+        <input id="sMajor" class="form-control mb-2" placeholder="Role">
 
         <button id="addStudentBtn" class="btn btn-success w-100 mb-3">
             Add User
@@ -132,14 +123,14 @@
 </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ✅ FOOTER -->
 <footer class="bg-dark text-white text-center py-3 mt-4">
-  <div class="container">
-    <p class="small mb-0">© 2025 SmartLib Management</p>
-  </div>
+  <p class="small mb-0">© 2026 SmartLib Management</p>
 </footer>
 
 <script src="script.js"></script>
+
+<!-- ✅ Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
