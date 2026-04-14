@@ -10,124 +10,20 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./style.css" />
-    <style>
-      
-      .dashboard-page {
-        background: linear-gradient(
-          160deg,
-          rgba(0, 54, 82, 0.06) 0%,
-          rgba(255, 255, 255, 1) 38%,
-          rgba(0, 200, 150, 0.05) 100%
-        );
-        min-height: 100vh;
-      }
-
-      .dashboard-page .dashboard-shell {
-        background-color: rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(0, 54, 82, 0.12);
-        border-radius: 12px;
-        box-shadow: 0 0.5rem 1.5rem rgba(0, 54, 82, 0.08);
-      }
-
-      .dashboard-page .dashboard-kicker {
-        color: rgba(0, 54, 82, 0.55);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-
-      .dashboard-page .dashboard-title {
-        color: rgb(0, 54, 82);
-      }
-
-      
-      .dashboard-page .navbar-nav .nav-link {
-        text-decoration: none;
-        opacity: 0.88;
-        transition: color 0.2s ease, opacity 0.2s ease, text-decoration-color 0.2s ease;
-      }
-
-      .dashboard-page .navbar-nav .nav-link:hover {
-        color: #7fe8c8 !important;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 4px;
-        opacity: 1;
-      }
-
-      .dashboard-page .navbar-nav .nav-link.active {
-        opacity: 1;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-      }
-
-      
-      .dashboard-page table#table-3-borrowing-history {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0;
-      }
-
-      .dashboard-page table#table-3-borrowing-history caption {
-        caption-side: top;
-        padding-bottom: 0.75rem;
-        font-weight: 600;
-        color: rgb(0, 54, 82);
-        text-align: left;
-      }
-
-      .dashboard-page table#table-3-borrowing-history th,
-      .dashboard-page table#table-3-borrowing-history td {
-        border: 1px solid rgba(0, 54, 82, 0.2);
-        padding: 14px 18px;
-        text-align: left;
-        vertical-align: middle;
-      }
-
-      .dashboard-page table#table-3-borrowing-history thead th {
-        background-color: rgb(0, 54, 82);
-        color: #fff;
-        font-weight: 600;
-      }
-
-      .dashboard-page table#table-3-borrowing-history tbody tr:nth-child(even) {
-        background-color: rgba(0, 54, 82, 0.045);
-      }
-
-      .dashboard-page table#table-3-borrowing-history tbody tr:nth-child(odd) {
-        background-color: rgba(255, 255, 255, 0.9);
-      }
-
-      .dashboard-page .status-ok {
-        color: rgb(0, 130, 85);
-        font-weight: 600;
-      }
-
-      .dashboard-page .status-warn {
-        color: rgb(180, 120, 0);
-        font-weight: 600;
-      }
-
-      .dashboard-page .status-late {
-        color: rgba(180, 40, 40, 0.92);
-        font-weight: 600;
-      }
-    </style>
   </head>
-  <body class="dashboard-page">
-    <nav class="navbar navbar-expand-lg navbar-style navbar-dark">
+  <body class="d-flex flex-column min-vh-100 bg-body-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div class="container">
-        <a href="index.html" class="navbar-brand">
+        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 fw-semibold">
           <img
             src="./assets/SmartLib_logo.jpg"
-            alt="Logo"
+            alt="SmartLib logo"
             width="40"
             height="30"
-            class="d-inline-block align-text-top"
+            class="d-inline-block rounded"
           />
-          SmartLib</a>
+          <span>SmartLib</span>
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -140,7 +36,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav ms-auto ms-lg-0 me-lg-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a href="index.html" class="nav-link">Home</a>
             </li>
@@ -157,6 +53,9 @@
               <a href="contact.html" class="nav-link">Contact Us</a>
             </li>
             <li class="nav-item">
+              <a href="questionnaire.html" class="nav-link">Questionnaire</a>
+            </li>
+            <li class="nav-item">
               <a href="signup.html" class="nav-link">Sign up</a>
             </li>
             <li class="nav-item">
@@ -170,69 +69,258 @@
       </div>
     </nav>
 
-    <main class="container py-5">
-      <div class="dashboard-shell p-4 p-md-5 mb-4">
-        <p class="dashboard-kicker mb-1">Patron dashboard</p>
-        <h1 class="dashboard-title display-6 fw-bold mb-2">My Account</h1>
-        <p class="text-secondary mb-0">
-          Welcome back. Below is a snapshot of your borrowing activity.
-        </p>
-      </div>
+    <main class="flex-grow-1 py-4 py-md-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-12">
+            <div
+              class="alert alert-primary alert-dismissible fade show border-0 shadow-sm"
+              role="alert"
+            >
+              <strong class="me-1">Welcome back.</strong>
+              <span class="small d-block d-sm-inline mt-1 mt-sm-0">
+                Your loans and due dates update when you visit the library desk or kiosk.
+              </span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
 
-      <div class="dashboard-shell p-4 p-md-5">
-        <h2 class="h5 fw-semibold dashboard-title mb-3">Table — Borrowing history</h2>
-        <div class="table-responsive">
-          <table id="table-3-borrowing-history">
-            <caption>
-              Recent loans (due dates and status)
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Book</th>
-                <th scope="col">Author</th>
-                <th scope="col">Due date</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>The Design of Everyday Things</td>
-                <td>Don Norman</td>
-                <td>Apr 2, 2025</td>
-                <td class="status-ok">Checked out</td>
-              </tr>
-              <tr>
-                <td>Clean Code</td>
-                <td>Robert C. Martin</td>
-                <td>Mar 28, 2025</td>
-                <td class="status-warn">Due soon</td>
-              </tr>
-              <tr>
-                <td>Introduction to Algorithms</td>
-                <td>Cormen et al.</td>
-                <td>Mar 15, 2025</td>
-                <td class="status-late">Overdue</td>
-              </tr>
-              <tr>
-                <td>Database System Concepts</td>
-                <td>Silberschatz et al.</td>
-                <td>Feb 10, 2025</td>
-                <td class="status-ok">Returned</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="col-12">
+            <div class="card shadow-sm border-0 mb-4">
+              <div class="card-body p-4 p-md-5">
+                <p class="small text-uppercase fw-semibold text-secondary mb-2">
+                  Patron dashboard
+                </p>
+                <h1 class="display-6 fw-bold text-primary mb-2">My Account</h1>
+                <p class="text-secondary mb-0 lead fs-6">
+                  Below is a snapshot of your borrowing activity and preferences you can update
+                  anytime.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <ul class="nav nav-tabs nav-fill flex-column flex-sm-row" id="accountTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active fw-semibold"
+                  id="borrow-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#borrow-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="borrow-pane"
+                  aria-selected="true"
+                >
+                  Borrowing history
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link fw-semibold"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile-pane"
+                  aria-selected="false"
+                >
+                  Profile &amp; notifications
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content border border-top-0 rounded-bottom bg-white p-4 p-md-4 shadow-sm">
+              <div
+                class="tab-pane fade show active"
+                id="borrow-pane"
+                role="tabpanel"
+                aria-labelledby="borrow-tab"
+                tabindex="0"
+              >
+                <h2 class="h5 fw-semibold text-primary mb-3">Table — Borrowing history</h2>
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered align-middle caption-top mb-0">
+                    <caption class="text-body fw-semibold text-start py-2">
+                      Recent loans (due dates and status)
+                    </caption>
+                    <thead class="table-dark">
+                      <tr>
+                        <th scope="col">Book</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Due date</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>The Design of Everyday Things</td>
+                        <td>Don Norman</td>
+                        <td>Apr 2, 2026</td>
+                        <td><span class="text-success fw-semibold">Checked out</span></td>
+                      </tr>
+                      <tr>
+                        <td>Clean Code</td>
+                        <td>Robert C. Martin</td>
+                        <td>Mar 28, 2026</td>
+                        <td><span class="text-warning fw-semibold">Due soon</span></td>
+                      </tr>
+                      <tr>
+                        <td>Introduction to Algorithms</td>
+                        <td>Cormen et al.</td>
+                        <td>Mar 15, 2026</td>
+                        <td><span class="text-danger fw-semibold">Overdue</span></td>
+                      </tr>
+                      <tr>
+                        <td>Database System Concepts</td>
+                        <td>Silberschatz et al.</td>
+                        <td>Feb 10, 2026</td>
+                        <td><span class="text-success fw-semibold">Returned</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div
+                class="tab-pane fade"
+                id="profile-pane"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+                tabindex="0"
+              >
+                <h2 class="h5 fw-semibold text-primary mb-3">Update preferences</h2>
+                <p class="text-secondary small mb-4">
+                  This form validates in the browser only; it does not submit to a server in this
+                  demo.
+                </p>
+                <form id="account-preferences-form" class="needs-validation" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="acct-email" class="form-label">Notification email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="acct-email"
+                        name="notify_email"
+                        required
+                        autocomplete="email"
+                        value="patron@university.edu"
+                      />
+                      <div class="invalid-feedback">Enter a valid email for reminders.</div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="acct-phone" class="form-label">SMS number (optional)</label>
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="acct-phone"
+                        name="sms_phone"
+                        autocomplete="tel"
+                        placeholder="+1 …"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="acct-branch" class="form-label">Preferred pickup branch</label>
+                      <select class="form-select" id="acct-branch" name="branch" required>
+                        <option value="">Choose a branch…</option>
+                        <option value="main">Main Library</option>
+                        <option value="science">Science Reading Room</option>
+                        <option value="media">Media &amp; Makerspace</option>
+                      </select>
+                      <div class="invalid-feedback">Please select your preferred branch.</div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="acct-digest"
+                          name="weekly_digest"
+                        />
+                        <label class="form-check-label" for="acct-digest">
+                          Email me a weekly digest of new arrivals in my subjects
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-wrap gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Save preferences</button>
+                    <button type="reset" class="btn btn-outline-secondary">Reset form</button>
+                  </div>
+                </form>
+
+                <div class="accordion mt-5" id="accountHelpAccordion">
+                  <div class="accordion-item">
+                    <h3 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#helpRenew"
+                        aria-expanded="false"
+                        aria-controls="helpRenew"
+                      >
+                        Renewals &amp; due dates
+                      </button>
+                    </h3>
+                    <div
+                      id="helpRenew"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accountHelpAccordion"
+                    >
+                      <div class="accordion-body small text-secondary">
+                        Most items renew automatically once if no one has placed a hold. You will
+                        receive email reminders before the due date when notifications are enabled.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h3 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#helpFines"
+                        aria-expanded="false"
+                        aria-controls="helpFines"
+                      >
+                        Fines &amp; returns
+                      </button>
+                    </h3>
+                    <div
+                      id="helpFines"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accountHelpAccordion"
+                    >
+                      <div class="accordion-body small text-secondary">
+                        Return materials to any SmartLib location. Overdue fines appear on your
+                        account summary after the grace period shown on your checkout receipt.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
 
-    <footer class="text-white py-3" style="background-color: rgb(0, 54, 82);">
+    <footer class="bg-primary text-white py-4 mt-auto">
       <div class="container text-center">
         <p class="small mb-0">
-          <a href="about.html" class="text-white text-decoration-none">About</a>
-          &nbsp;·&nbsp;
-          <a href="contact.html" class="text-white text-decoration-none">Contact</a>
-          &nbsp;·&nbsp;
-          © 2025 SmartLib Management. All rights reserved.
+          <a href="about.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">About</a>
+          <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
+          <a href="contact.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Contact</a>
+          <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
+          © 2026 SmartLib Management. All rights reserved.
         </p>
       </div>
     </footer>

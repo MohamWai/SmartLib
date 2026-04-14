@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartLib — Customer feedback questionnaire</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="d-flex flex-column min-vh-100 bg-body-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <div class="container">
+        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 fw-semibold">
+          <img
+            src="./assets/SmartLib_logo.jpg"
+            alt="SmartLib logo"
+            width="40"
+            height="30"
+            class="d-inline-block rounded"
+          />
+          <span>SmartLib</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto ms-lg-0 me-lg-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="search.html" class="nav-link">Search</a>
+            </li>
+            <li class="nav-item">
+              <a href="reports.html" class="nav-link">Reports</a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="questionnaire.html" class="nav-link active" aria-current="page">Questionnaire</a>
+            </li>
+            <li class="nav-item">
+              <a href="signup.html" class="nav-link">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a href="account.html" class="nav-link">Account</a>
+            </li>
+            <li class="nav-item">
+              <a href="admin.html" class="nav-link">Admin</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-grow-1 py-4 py-md-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-xl-10">
+            <header class="text-center text-lg-start mb-4 pb-lg-2">
+              <p class="text-uppercase small fw-semibold text-secondary mb-1">We value your voice</p>
+              <h1 class="display-6 fw-bold text-primary mb-2">Library experience questionnaire</h1>
+              <p class="lead fs-6 text-secondary mb-0 col-lg-10">
+                Help us improve SmartLib by sharing structured feedback. Only full name, email,
+                and comments are required. Your answers are sent to a demo endpoint for this
+                assignment only.
+              </p>
+            </header>
+
+            <div class="row g-4">
+              <div class="col-lg-8">
+                <div class="card shadow border-0 h-100">
+                  <div class="card-header bg-primary text-white py-3">
+                    <h2 class="h5 mb-0 fw-semibold">Feedback form</h2>
+                  </div>
+                  <div class="card-body p-4 p-md-5">
+                    <form
+                      id="questionnaire-form"
+                      class="needs-validation"
+                      action="https://httpbin.org/post"
+                      method="post"
+                      novalidate
+                    >
+                      <div class="row g-4">
+                        <div class="col-12">
+                          <label for="q-name" class="form-label">
+                            Full name <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control form-control-lg"
+                            id="q-name"
+                            name="respondent_name"
+                            autocomplete="name"
+                            required
+                            placeholder="e.g. Jordan Lee"
+                          />
+                          <div class="form-text">
+                            Use your first and last name separated by a space (letters, hyphens, and
+                            apostrophes allowed).
+                          </div>
+                          <div class="invalid-feedback" id="q-name-feedback">
+                            Please enter a first and last name using only allowed characters.
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="q-email" class="form-label">
+                            Contact email <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="q-email"
+                            name="contact_email"
+                            autocomplete="email"
+                            required
+                            placeholder="you@example.org"
+                          />
+                          <div class="form-text">
+                            Must look like a real mailbox: valid local part, domain, and a letter-only
+                            TLD at least two characters (no numbers in TLD).
+                          </div>
+                          <div class="invalid-feedback" id="q-email-feedback">
+                            Email does not match the required pattern.
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="q-frequency" class="form-label">
+                            How often do you visit the library?
+                          </label>
+                          <select class="form-select" id="q-frequency" name="visit_frequency">
+                            <option value="" selected disabled>Select an option…</option>
+                            <option value="daily">Several times a week</option>
+                            <option value="weekly">About once a week</option>
+                            <option value="monthly">A few times a semester</option>
+                            <option value="rarely">Rarely</option>
+                          </select>
+                        </div>
+
+                        <div class="col-12">
+                          <fieldset>
+                            <legend class="form-label">
+                              Would you recommend SmartLib to a colleague?
+                            </legend>
+                            <div class="d-flex flex-wrap gap-4">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="would_recommend"
+                                  id="q-rec-yes"
+                                  value="yes"
+                                />
+                                <label class="form-check-label" for="q-rec-yes">Yes</label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="would_recommend"
+                                  id="q-rec-maybe"
+                                  value="maybe"
+                                />
+                                <label class="form-check-label" for="q-rec-maybe">Maybe</label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="would_recommend"
+                                  id="q-rec-no"
+                                  value="no"
+                                />
+                                <label class="form-check-label" for="q-rec-no">Not yet</label>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <fieldset>
+                            <legend class="form-label">
+                              Which services have you used recently?
+                            </legend>
+                            <div class="row row-cols-1 row-cols-sm-2 g-2">
+                              <div class="col">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input q-service-cb"
+                                    type="checkbox"
+                                    name="services_used"
+                                    id="q-svc-study"
+                                    value="study_spaces"
+                                  />
+                                  <label class="form-check-label" for="q-svc-study">Study spaces</label>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input q-service-cb"
+                                    type="checkbox"
+                                    name="services_used"
+                                    id="q-svc-borrow"
+                                    value="borrowing"
+                                  />
+                                  <label class="form-check-label" for="q-svc-borrow">Borrowing desk</label>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input q-service-cb"
+                                    type="checkbox"
+                                    name="services_used"
+                                    id="q-svc-digital"
+                                    value="digital_resources"
+                                  />
+                                  <label class="form-check-label" for="q-svc-digital">Digital resources</label>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input q-service-cb"
+                                    type="checkbox"
+                                    name="services_used"
+                                    id="q-svc-workshops"
+                                    value="workshops"
+                                  />
+                                  <label class="form-check-label" for="q-svc-workshops">Workshops / tours</label>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="q-score" class="form-label">
+                            Overall satisfaction
+                            <span class="badge bg-primary ms-2" id="q-score-badge" aria-live="polite">5</span>
+                          </label>
+                          <input
+                            type="range"
+                            class="form-range"
+                            id="q-score"
+                            name="satisfaction_score"
+                            min="1"
+                            max="10"
+                            step="1"
+                            value="5"
+                          />
+                          <div class="d-flex justify-content-between small text-secondary">
+                            <span>Very dissatisfied</span>
+                            <span>Excellent</span>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="q-last-visit" class="form-label">Last visit date (optional)</label>
+                          <input type="date" class="form-control" id="q-last-visit" name="last_visit_date" />
+                          <div class="form-text">If provided, the date cannot be in the future.</div>
+                          <div class="invalid-feedback" id="q-date-feedback">Choose today or an earlier date.</div>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="q-comments" class="form-label">
+                            What should we start, stop, or continue doing? <span class="text-danger">*</span>
+                          </label>
+                          <textarea
+                            class="form-control"
+                            id="q-comments"
+                            name="detailed_feedback"
+                            rows="5"
+                            required
+                            placeholder="Share specific examples. Plain text only—do not paste links."
+                          ></textarea>
+                          <div class="d-flex justify-content-between align-items-center mt-1">
+                            <div class="form-text mb-0">
+                              Minimum 40 characters; link-like text (http, https, www.) is not accepted.
+                            </div>
+                            <span class="small text-secondary" id="q-char-count" aria-live="polite">0 / 40+</span>
+                          </div>
+                          <div class="invalid-feedback" id="q-comments-feedback">
+                            Comments must be long enough and must not contain web links.
+                          </div>
+                        </div>
+                      </div>
+
+                      <hr class="my-4" />
+
+                      <div class="d-flex flex-column flex-sm-row gap-3 align-items-stretch align-items-sm-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">Submit feedback</button>
+                        <button type="reset" class="btn btn-outline-secondary btn-lg" id="q-reset">
+                          Clear form
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-4">
+                  <div class="card-body">
+                    <h3 class="h6 text-primary fw-semibold mb-3">Why we ask</h3>
+                    <ul class="small text-secondary mb-0 ps-3">
+                      <li class="mb-2">Ratings and comments are reviewed in our monthly service review.</li>
+                      <li class="mb-2">Service checkboxes show where investment helps most.</li>
+                      <li>Your email is only used if we need a polite follow-up—never sold.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card border-primary border-opacity-25 bg-white shadow-sm">
+                  <div class="card-body">
+                    <h3 class="h6 fw-semibold mb-2">Privacy note</h3>
+                    <p class="small text-secondary mb-0">
+                      This demo posts JSON-compatible fields to
+                      <a href="https://httpbin.org/post" class="link-primary">httpbin.org</a>, which echoes
+                      your payload for learning purposes only.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-primary text-white py-4 mt-auto">
+      <div class="container text-center">
+        <p class="small mb-0">
+          <a href="about.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">About</a>
+          <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
+          <a href="contact.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Contact</a>
+          <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
+          © 2026 SmartLib Management. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      (function () {
+        'use strict';
+        var form = document.getElementById('questionnaire-form');
+        if (!form) return;
+
+        var nameInput = document.getElementById('q-name');
+        var emailInput = document.getElementById('q-email');
+        var commentsInput = document.getElementById('q-comments');
+        var commentsFeedback = document.getElementById('q-comments-feedback');
+        var scoreInput = document.getElementById('q-score');
+        var scoreBadge = document.getElementById('q-score-badge');
+        var charCount = document.getElementById('q-char-count');
+        var nameFeedback = document.getElementById('q-name-feedback');
+        var emailFeedback = document.getElementById('q-email-feedback');
+
+        // 1) Name must contain at least two words with valid characters.
+        var NAME_PATTERN = /^[A-Za-zÀ-ÿ'-]{2,}(?:\s+[A-Za-zÀ-ÿ'-]{2,})+$/;
+
+        function validateRespondentName() {
+          if (!nameInput) return;
+          var raw = nameInput.value.trim();
+          if (!raw) {
+            // Empty is handled by native `required`; clear custom error here.
+            nameInput.setCustomValidity('');
+            if (nameFeedback) nameFeedback.textContent = 'Please enter your full name.';
+            return;
+          }
+          if (!NAME_PATTERN.test(raw)) {
+            nameInput.setCustomValidity('badname');
+            if (nameFeedback) {
+              nameFeedback.textContent =
+                'Use at least two parts (e.g. Alex Morgan). Only letters, spaces, hyphens, and apostrophes.';
+            }
+            return;
+          }
+          nameInput.setCustomValidity('');
+          if (nameFeedback) {
+            nameFeedback.textContent =
+              'Please enter a first and last name using only allowed characters.';
+          }
+        }
+
+        // 2) Email must match a stricter pattern than type="email".
+        var EMAIL_STRUCTURE =
+          /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
+
+        function validateContactEmail() {
+          if (!emailInput) return;
+          var v = emailInput.value.trim();
+          if (!v) {
+            // Let browser show required-state message for empty value.
+            emailInput.setCustomValidity('');
+            if (emailFeedback) emailFeedback.textContent = 'Please enter an email address.';
+            return;
+          }
+          if (!EMAIL_STRUCTURE.test(v)) {
+            emailInput.setCustomValidity('badmail');
+            if (emailFeedback) {
+              emailFeedback.textContent =
+                'Example of valid shape: name.surname@campus.edu — check dots and the part after @.';
+            }
+            return;
+          }
+          emailInput.setCustomValidity('');
+          if (emailFeedback) {
+            emailFeedback.textContent = 'Email does not match the required pattern.';
+          }
+        }
+
+        // 3) Comments must be long enough and cannot contain links.
+        var MIN_COMMENT_LEN = 40;
+        var LINK_HINTS = [/https?:\/\//i, /\bwww\./i];
+
+        function validateNarrativeComments() {
+          if (!commentsInput) return;
+          var text = commentsInput.value.trim();
+          if (!text) {
+            // Empty comments fail because textarea is required in the HTML.
+            commentsInput.setCustomValidity('');
+            if (commentsFeedback) {
+              commentsFeedback.textContent =
+                'Comments must be long enough and must not contain web links.';
+            }
+            return;
+          }
+          if (text.length < MIN_COMMENT_LEN) {
+            // Custom error 1: not enough content.
+            commentsInput.setCustomValidity('short');
+            if (commentsFeedback) {
+              commentsFeedback.textContent =
+                'Please write at least ' + MIN_COMMENT_LEN + ' characters of concrete feedback.';
+            }
+            return;
+          }
+          for (var h = 0; h < LINK_HINTS.length; h++) {
+            if (LINK_HINTS[h].test(commentsInput.value)) {
+              // Custom error 2: block link-like text.
+              commentsInput.setCustomValidity('links');
+              if (commentsFeedback) {
+                commentsFeedback.textContent =
+                  'Remove http(s):// or www. snippets; describe the issue in your own words.';
+              }
+              return;
+            }
+          }
+          commentsInput.setCustomValidity('');
+          if (commentsFeedback) {
+            commentsFeedback.textContent =
+              'Comments must be long enough and must not contain web links.';
+          }
+        }
+
+        // Run only the three custom validators above.
+        function runAllValidators() {
+          validateRespondentName();
+          validateContactEmail();
+          validateNarrativeComments();
+        }
+
+        // Live character counter for comments.
+        function refreshCharCount() {
+          if (!charCount || !commentsInput) return;
+          var n = commentsInput.value.trim().length;
+          charCount.textContent = n + ' / ' + MIN_COMMENT_LEN + '+';
+        }
+
+        // Update satisfaction badge when slider moves.
+        function refreshScoreBadge() {
+          if (!scoreBadge || !scoreInput) return;
+          scoreBadge.textContent = scoreInput.value;
+        }
+
+        // Validate fields while typing so users see quick feedback.
+        if (nameInput) nameInput.addEventListener('input', validateRespondentName);
+        if (emailInput) emailInput.addEventListener('input', validateContactEmail);
+        if (commentsInput) {
+          commentsInput.addEventListener('input', function () {
+            validateNarrativeComments();
+            refreshCharCount();
+          });
+        }
+        if (scoreInput) scoreInput.addEventListener('input', refreshScoreBadge);
+
+        form.addEventListener(
+          'submit',
+          function (event) {
+            // Always run custom checks first, then ask browser for final validity.
+            runAllValidators();
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            // Triggers Bootstrap invalid/valid styles after first submit.
+            form.classList.add('was-validated');
+          },
+          false
+        );
+
+        var resetBtn = document.getElementById('q-reset');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            // After reset, clear custom messages and Bootstrap validation styles.
+            setTimeout(function () {
+              form.classList.remove('was-validated');
+              if (nameInput) nameInput.setCustomValidity('');
+              if (emailInput) emailInput.setCustomValidity('');
+              if (commentsInput) commentsInput.setCustomValidity('');
+              refreshCharCount();
+              refreshScoreBadge();
+            }, 0);
+          });
+        }
+
+        refreshCharCount();
+        refreshScoreBadge();
+      })();
+    </script>
+  </body>
+</html>
