@@ -1,29 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SmartLib — Register</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body class="d-flex flex-column min-vh-100 bg-body-secondary">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmartLib - Book Search</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-style navbar-dark" style="background-color: rgb(0, 54, 82);">
       <div class="container">
-        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 fw-semibold">
+        <a href="index.html" class="navbar-brand">
           <img
             src="./assets/SmartLib_logo.jpg"
-            alt="SmartLib logo"
+            alt="Logo"
             width="40"
             height="30"
-            class="d-inline-block rounded"
+            class="d-inline-block align-text-top"
           />
-          <span>SmartLib</span>
-        </a>
+          SmartLib</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -38,25 +36,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto ms-lg-0 me-lg-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a href="index.html" class="nav-link">Home</a>
+              <a href="index.html" class="nav-link ">Home</a>
             </li>
             <li class="nav-item">
-              <a href="search.html" class="nav-link">Search</a>
+              <a href="search.html" class="nav-link active">Search</a>
             </li>
             <li class="nav-item">
               <a href="reports.html" class="nav-link">Reports</a>
             </li>
             <li class="nav-item">
-              <a href="about.html" class="nav-link">About</a>
+              <a href="about.html" class="nav-link ">About</a>
             </li>
             <li class="nav-item">
               <a href="contact.html" class="nav-link">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a href="questionaire.html" class="nav-link">Questionnaire</a>
-            </li>
-            <li class="nav-item">
-              <a href="signup.html" class="nav-link active" aria-current="page">Sign up</a>
+              <a href="signup.html" class="nav-link">Sign up</a>
             </li>
             <li class="nav-item">
               <a href="account.html" class="nav-link">Account</a>
@@ -69,277 +64,122 @@
       </div>
     </nav>
 
-    <main class="flex-grow-1 py-4 py-md-5">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-10 col-xl-8">
-            <div class="text-center text-lg-start mb-4">
-              <h1 class="display-6 fw-bold text-primary mb-2">Create an account</h1>
-              <p class="lead fs-6 text-secondary mb-0">
-                Registration form submits to
-                <a href="https://httpbin.org" class="link-primary link-offset-2">httpbin.org</a>
-                for demo purposes.
-              </p>
-            </div>
+<!-- CONTENT -->
+<div class="container my-4">
 
-            <div class="card shadow-sm border-0">
-              <div class="card-body p-4 p-md-5">
-                <h2 class="h4 fw-semibold text-primary mb-4 pb-2 border-bottom">
-                  Form — Registration
-                </h2>
+<h1 class="h3 mb-3">SmartLib Digital Library</h1>
+<hr>
 
-                <div
-                  class="alert alert-info alert-dismissible fade show d-flex align-items-start gap-2 mb-4"
-                  role="alert"
-                >
-                  <span class="flex-shrink-0 fw-semibold" aria-hidden="true">Note:</span>
-                  <div class="small mb-0">
-                    Use at least 8 characters for your password. Open
-                    <button
-                      type="button"
-                      class="btn btn-link btn-sm p-0 align-baseline"
-                      data-bs-toggle="modal"
-                      data-bs-target="#termsModal"
-                    >
-                      Terms &amp; privacy summary
-                    </button>
-                    before you register.
-                  </div>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"
-                  ></button>
-                </div>
+<h2 class="text-center mb-4">Advanced Book Search</h2>
 
-                <form
-                  id="form-3"
-                  class="needs-validation"
-                  action="https://httpbin.org/post"
-                  method="post"
-                  novalidate
-                >
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label for="reg-first" class="form-label">First name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="reg-first"
-                        name="first_name"
-                        required
-                        autocomplete="given-name"
-                        minlength="1"
-                        maxlength="80"
-                      />
-                      <div class="invalid-feedback">Please enter your first name.</div>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="reg-last" class="form-label">Last name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="reg-last"
-                        name="last_name"
-                        required
-                        autocomplete="family-name"
-                        minlength="1"
-                        maxlength="80"
-                      />
-                      <div class="invalid-feedback">Please enter your last name.</div>
-                    </div>
-                    <div class="col-12">
-                      <label for="reg-email" class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="reg-email"
-                        name="email"
-                        required
-                        autocomplete="email"
-                        placeholder="you@university.edu"
-                      />
-                      <div class="invalid-feedback">Please provide a valid email address.</div>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="reg-password" class="form-label">Password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="reg-password"
-                        name="password"
-                        required
-                        minlength="8"
-                        autocomplete="new-password"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        data-bs-title="Minimum 8 characters. Mix letters and numbers for a stronger password."
-                      />
-                      <div class="invalid-feedback">
-                        Password must be at least 8 characters.
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="reg-password2" class="form-label">Confirm password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="reg-password2"
-                        name="password_confirm"
-                        required
-                        minlength="8"
-                        autocomplete="new-password"
-                      />
-                      <div class="invalid-feedback">Passwords must match.</div>
-                    </div>
-                    <div class="col-12">
-                      <fieldset>
-                        <legend class="form-label mb-2">Patron type</legend>
-                        <div class="d-flex flex-wrap gap-4">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              name="patron_type"
-                              id="patron-student"
-                              value="student"
-                              checked
-                            />
-                            <label class="form-check-label" for="patron-student">Student</label>
-                          </div>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              name="patron_type"
-                              id="patron-faculty"
-                              value="faculty"
-                            />
-                            <label class="form-check-label" for="patron-faculty">Faculty</label>
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="terms-agree" required />
-                        <label class="form-check-label" for="terms-agree">
-                          I agree to the library registration terms.
-                        </label>
-                        <div class="invalid-feedback">You must agree before registering.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button
-                        class="btn btn-outline-secondary w-100 w-md-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#optionalFields"
-                        aria-expanded="false"
-                        aria-controls="optionalFields"
-                      >
-                        Optional details
-                        <span class="small text-muted ms-1">(expand)</span>
-                      </button>
-                      <div class="collapse mt-3" id="optionalFields">
-                        <div class="card card-body bg-light border-0">
-                          <div class="row g-3">
-                            <div class="col-md-6">
-                              <label for="reg-phone" class="form-label">Phone</label>
-                              <input
-                                type="tel"
-                                class="form-control"
-                                id="reg-phone"
-                                name="phone"
-                                autocomplete="tel"
-                                placeholder="Optional"
-                              />
-                            </div>
-                            <div class="col-md-6">
-                              <label for="reg-dept" class="form-label">Department</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="reg-dept"
-                                name="department"
-                                maxlength="120"
-                                placeholder="Optional"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-3 mt-4 pt-2">
-                    <button type="submit" class="btn btn-primary btn-lg px-4">Register</button>
-                    <a href="account.html" class="btn btn-outline-secondary btn-lg">Already a member?</a>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+<!-- FORM -->
+<div class="row justify-content-center">
+<div class="col-md-6">
 
-    <div
-      class="modal fade"
-      id="termsModal"
-      tabindex="-1"
-      aria-labelledby="termsModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="termsModalLabel">Terms &amp; privacy summary</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p class="mb-3">
-              SmartLib uses your registration details to manage borrowing, notifications, and
-              account security. Demo submissions sent to httpbin.org are not stored by SmartLib.
-            </p>
-            <ul class="small text-secondary mb-0">
-              <li class="mb-2">You can update contact preferences from your account page.</li>
-              <li class="mb-2">Never share your password. Library staff will never ask for it.</li>
-              <li>Close this dialog and check the agreement box to continue.</li>
-            </ul>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it</button>
-          </div>
-        </div>
-      </div>
+<form class="p-4 border rounded bg-white" action="https://httpbin.org/post" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Book Title</label>
+        <input type="text" name="title" class="form-control" placeholder="Enter book title">
     </div>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="signupToast"
-        class="toast align-items-center text-bg-success border-0"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body">Form looks good — sending your registration…</div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select">
+            <option>Science</option>
+            <option>Technology</option>
+            <option>History</option>
+            <option>Business</option>
+            <option>Literature</option>
+        </select>
     </div>
 
+    <div class="mb-3">
+        <label class="form-label">Availability</label><br>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="ebook">
+            <label class="form-check-label">eBook Only</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="available">
+            <label class="form-check-label">Available Now</label>
+        </div>
+    </div>
+
+    <button class="btn btn-primary w-100">Search Books</button>
+
+</form>
+
+</div>
+</div>
+
+<hr>
+
+<h2 class="text-center mb-4">Search Results</h2>
+<div id="searchMessage" class="alert alert-info text-center fw-bold">
+  Showing available books
+</div>
+
+<!-- TABLE -->
+<div class="table-responsive">
+<table class="table table-bordered table-striped">
+<thead class="table-dark">
+<tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Category</th>
+    <th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Introduction to Algorithms</td>
+<td>Thomas Cormen</td>
+<td>Technology</td>
+<td>Available</td>
+</tr>
+
+<tr>
+<td colspan="4">
+A widely used computer science textbook covering algorithms, data structures, and problem-solving techniques.
+</td>
+</tr>
+
+<tr>
+<td>Modern Physics</td>
+<td>Halliday</td>
+<td>Science</td>
+<td>Borrowed</td>
+</tr>
+
+<tr>
+<td colspan="4">
+This book explains the fundamental concepts of modern physics including relativity and quantum theory.
+</td>
+</tr>
+
+<tr>
+<td>Business Management</td>
+<td>John Smith</td>
+<td>Business</td>
+<td>Available</td>
+</tr>
+
+<tr>
+<td colspan="4">
+An introduction to leadership, management strategies, and organizational planning.
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+<!-- FOOTER -->
     <footer class="bg-primary text-white py-4 mt-auto">
       <div class="container text-center">
         <p class="small mb-0">
@@ -352,55 +192,6 @@
       </div>
     </footer>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      (function () {
-        'use strict';
-        const form = document.getElementById('form-3');
-        const pw1 = document.getElementById('reg-password');
-        const pw2 = document.getElementById('reg-password2');
-
-        function syncPasswordValidity() {
-          if (!pw1.value || !pw2.value) {
-            pw2.setCustomValidity('');
-            return;
-          }
-          if (pw1.value !== pw2.value) {
-            pw2.setCustomValidity('mismatch');
-          } else {
-            pw2.setCustomValidity('');
-          }
-        }
-
-        pw1.addEventListener('input', syncPasswordValidity);
-        pw2.addEventListener('input', syncPasswordValidity);
-
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
-          new bootstrap.Tooltip(el);
-        });
-
-        const toastEl = document.getElementById('signupToast');
-        const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3500 }) : null;
-
-        form.addEventListener(
-          'submit',
-          function (event) {
-            syncPasswordValidity();
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            } else {
-              if (toast) toast.show();
-            }
-            form.classList.add('was-validated');
-          },
-          false
-        );
-      })();
-    </script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
