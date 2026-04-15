@@ -357,50 +357,71 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script>
-      (function () {
-        'use strict';
-        const form = document.getElementById('form-3');
-        const pw1 = document.getElementById('reg-password');
-        const pw2 = document.getElementById('reg-password2');
+<script>
+  (function () {
+    'use strict'; // Prevents the use of undeclared variables for cleaner code
 
-        function syncPasswordValidity() {
-          if (!pw1.value || !pw2.value) {
-            pw2.setCustomValidity('');
-            return;
-          }
-          if (pw1.value !== pw2.value) {
-            pw2.setCustomValidity('mismatch');
-          } else {
-            pw2.setCustomValidity('');
-          }
+    // --- 1. Element Selectors ---
+    const form = document.getElementById('form-3');
+    const pw1 = document.getElementById('reg-password');
+    const pw2 = document.getElementById('reg-password2');
+
+    // --- 2. Custom Password Matching Logic ---
+    function syncPasswordValidity() {
+      // If either field is empty, don't show an error yet
+      if (!pw1.value || !pw2.value) {
+        pw2.setCustomValidity('');
+        return;
+      }
+      
+      // Check if the confirmation password matches the first password
+      if (pw1.value !== pw2.value) {
+        // setCustomValidity('mismatch') marks the field as "invalid" in the browser
+        pw2.setCustomValidity('mismatch');
+      } else {
+        // Empty string means the field is now considered "valid"
+        pw2.setCustomValidity('');
+      }
+    }
+
+    // Re-run the check every time the user types in either password field
+    pw1.addEventListener('input', syncPasswordValidity);
+    pw2.addEventListener('input', syncPasswordValidity);
+
+    // --- 3. Bootstrap Component Initialization ---
+    
+    // Initialize all Tooltips on the page (like the password requirement hint)
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+      new bootstrap.Tooltip(el);
+    });
+
+    // Initialize the "Success" Toast notification (hidden by default)
+    const toastEl = document.getElementById('signupToast');
+    const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3500 }) : null;
+
+    // --- 4. Form Submission Handling ---
+    form.addEventListener(
+      'submit',
+      function (event) {
+        // Final check to ensure passwords match before sending
+        syncPasswordValidity();
+
+        // checkValidity() looks at 'required', 'minlength', and our custom validity
+        if (!form.checkValidity()) {
+          // If invalid, stop the form from actually sending to the server
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          //If valid, show the "Form looks good" toast message
+          if (toast) toast.show();
         }
 
-        pw1.addEventListener('input', syncPasswordValidity);
-        pw2.addEventListener('input', syncPasswordValidity);
-
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
-          new bootstrap.Tooltip(el);
-        });
-
-        const toastEl = document.getElementById('signupToast');
-        const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3500 }) : null;
-
-        form.addEventListener(
-          'submit',
-          function (event) {
-            syncPasswordValidity();
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            } else {
-              if (toast) toast.show();
-            }
-            form.classList.add('was-validated');
-          },
-          false
-        );
-      })();
-    </script>
+        // Add the Bootstrap class that triggers the green/red CSS styles
+        form.classList.add('was-validated');
+      },
+      false
+    );
+  })();
+</script>
   </body>
 </html>
