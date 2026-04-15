@@ -65,11 +65,11 @@ function checkAns() {
   const feadback = document.getElementById("feadback");
   if (playerAns == currectAns) { //is secnteces match ??
     feadback.innerHTML =
-      '<div class="alert alert-success mt-3">Amazing! You hit the currect answer.</div>';
+      '<div class="alert alert-success mt-3">Amazing! You hit the correct answer.</div>';
     return true;
   } else {
     feadback.innerHTML =
-      '<div class="alert alert-danger mt-3">Incurrect. Try again! Remember to use all words in correct order.</div>';
+      '<div class="alert alert-danger mt-3">Incorrect. Try again! Remember to use all words in correct order.</div>';
     return false;
   }
 }
