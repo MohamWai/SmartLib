@@ -29,7 +29,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto ms-lg-0 me-lg-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a href="index.html" class="nav-link active">Home</a>
             </li>
@@ -53,12 +53,6 @@
             </li>
             <li class="nav-item">
               <a href="admin.php" class="nav-link">Admin</a>
-            </li>
-            <li class="nav-item">
-              <a href="questionaire.html" class="nav-link">Questionnaire</a>
-            </li>
-            <li class="nav-item">
-              <a href="calculator.html" class="nav-link">Calculator</a>
             </li>
             <li class="nav-item">
               <a href="questionaire.html" class="nav-link">Questionnaire</a>
@@ -217,6 +211,10 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+    <script>
+      // Ensure DB exists when user opens home page.
+      fetch("./db.php?init=1").catch(() => {});
+    </script>
     <script src="./script.js"></script>
        
   </body>

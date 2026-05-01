@@ -1,14 +1,25 @@
 <?php
 include "db.php";
+function e($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8");
+}
 // UPLOAD BOOK
 if (isset($_POST['upload_title']) && !isset($_POST['title'])) {
+    $title = trim($_POST['upload_title'] ?? "");
+    $author = trim($_POST['upload_author'] ?? "");
+    $summary = trim($_POST['upload_summary'] ?? "");
+    $fileName = "";
 
-    $title = $_POST['upload_title'];
-    $author = $_POST['upload_author'];
-    $summary = $_POST['upload_summary'];
+    if (isset($_FILES['upload_file']) && is_array($_FILES['upload_file'])) {
+        $fileName = basename((string) ($_FILES['upload_file']['name'] ?? ""));
+    }
 
-    $conn->query("INSERT INTO books (title, author, summary)
-    VALUES ('$title','$author','$summary')");
+    if ($title !== "" && $author !== "") {
+        $stmt = $conn->prepare("INSERT INTO books (title, author, category, price_omr, summary, file_name) VALUES (?, ?, 'Uncategorized', 0.00, ?, ?)");
+        $stmt->bind_param("ssss", $title, $author, $summary, $fileName);
+        $stmt->execute();
+        $stmt->close();
+    }
 
     header("Location: admin.php?msg=uploaded");
     exit();
@@ -16,28 +27,32 @@ if (isset($_POST['upload_title']) && !isset($_POST['title'])) {
 
 // MANAGE USERS (Insert / Update)
 if (isset($_POST['user_name'])) {
-
-    $name = $_POST['user_name'];
-    $age = $_POST['user_age'];
-    $role = $_POST['user_role'];
+    $name = trim($_POST['user_name'] ?? "");
+    $age = (int) ($_POST['user_age'] ?? 0);
+    $role = trim($_POST['user_role'] ?? "");
+    $email = trim($_POST['user_email'] ?? "");
+    $userWriteOk = true;
 
     // UPDATE
-    if (isset($_POST['user_id'])) {
-        $uid = $_POST['user_id'];
-
-        $conn->query("UPDATE users SET
-        name='$name',
-        age='$age',
-        role='$role'
-        WHERE id=$uid");
-
+    if (isset($_POST['user_id']) && $name !== "" && $age > 0 && $role !== "" && $email !== "") {
+        $uid = (int) $_POST['user_id'];
+        $stmt = $conn->prepare("UPDATE users SET name = ?, age = ?, role = ?, email = ? WHERE id = ?");
+        $stmt->bind_param("sissi", $name, $age, $role, $email, $uid);
+        $userWriteOk = $stmt->execute();
+        $stmt->close();
     } else {
         // INSERT
-        $conn->query("INSERT INTO users (name, age, role)
-        VALUES ('$name','$age','$role')");
+        if ($name !== "" && $age > 0 && $role !== "" && $email !== "") {
+            $stmt = $conn->prepare("INSERT INTO users (name, age, role, email) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("siss", $name, $age, $role, $email);
+            $userWriteOk = $stmt->execute();
+            $stmt->close();
+        }
     }
 
-    if (isset($_POST['user_id'])) {
+    if (!$userWriteOk) {
+        header("Location: admin.php?msg=user_error");
+    } elseif (isset($_POST['user_id'])) {
         header("Location: admin.php?msg=user_updated");
     } else {
         header("Location: admin.php?msg=user_added");
@@ -47,43 +62,50 @@ if (isset($_POST['user_name'])) {
 $userEditMode=false;
 if (isset($_GET['edit_user'])){
   $userEditMode = true;
-  $uid = $_GET['edit_user'];
+  $uid = (int) $_GET['edit_user'];
 
-  $res = $conn->query("SELECT * FROM users WHERE id = $uid");
+  $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+  $stmt->bind_param("i", $uid);
+  $stmt->execute();
+  $res = $stmt->get_result();
   $user = $res->fetch_assoc();
+  $stmt->close();
 }
 
 $editMode = false;
 
 if (isset($_GET['edit'])) {
     $editMode = true;
-    $id = $_GET['edit'];
+    $id = (int) $_GET['edit'];
 
-    $result = $conn->query("SELECT * FROM books WHERE book_id = $id");
+    $stmt = $conn->prepare("SELECT * FROM books WHERE book_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $book = $result->fetch_assoc();
+    $stmt->close();
 }
 
 // MANAGE BOOKS (Insert / Update)
 if (isset($_POST['title'])) {
+    $title = trim($_POST['title'] ?? "");
+    $author = trim($_POST['author'] ?? "");
+    $price = (float) ($_POST['price'] ?? 0);
+    $category = trim($_POST['category'] ?? "");
 
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $price = $_POST['price'];
-    $category = $_POST['category'];
-
-    if (isset($_POST['id'])) {
-        $id = $_POST['id'];
-
-        $conn->query("UPDATE books SET
-        title='$title',
-        author='$author',
-        category='$category',
-        price_omr='$price'
-        WHERE book_id=$id");
-
+    if (isset($_POST['id']) && $title !== "" && $author !== "" && $category !== "") {
+        $id = (int) $_POST['id'];
+        $stmt = $conn->prepare("UPDATE books SET title = ?, author = ?, category = ?, price_omr = ? WHERE book_id = ?");
+        $stmt->bind_param("sssdi", $title, $author, $category, $price, $id);
+        $stmt->execute();
+        $stmt->close();
     } else {
-        $conn->query("INSERT INTO books (title, author, category, price_omr)
-        VALUES ('$title','$author','$category','$price')");
+        if ($title !== "" && $author !== "" && $category !== "") {
+            $stmt = $conn->prepare("INSERT INTO books (title, author, category, price_omr) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sssd", $title, $author, $category, $price);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 
    if (isset($_POST['id'])) {
@@ -137,6 +159,9 @@ if (isset($_POST['title'])) {
 <div class="container my-4">
 
 <h2 class="text-center mb-4 fw-bold">Admin Dashboard</h2>
+<div class="text-center mb-3">
+  <a href="oop_books.php" class="btn btn-outline-dark btn-sm">Open OOP Books Report</a>
+</div>
 
 <?php if (isset($_GET['msg'])): ?>
 
@@ -157,6 +182,9 @@ if (isset($_POST['title'])) {
 
 <?php elseif ($_GET['msg'] == 'user_updated'): ?>
 <div class="alert alert-info text-center">✏️ User updated successfully</div>
+
+<?php elseif ($_GET['msg'] == 'user_error'): ?>
+<div class="alert alert-warning text-center">⚠️ Could not save user (email may already exist)</div>
 
 <?php elseif ($_GET['msg'] == 'uploaded'): ?>
 <div class="alert alert-success text-center">📚 Book uploaded successfully</div>
@@ -179,7 +207,7 @@ setTimeout(() => {
   <input name="upload_title" class="form-control mb-2" placeholder="Book Title">
   <input name="upload_author" class="form-control mb-2" placeholder="Author">
   <textarea name="upload_summary" class="form-control mb-2" placeholder="Summary"></textarea>
-  <input id="uFile" type="file" class="form-control mb-3">
+  <input id="uFile" name="upload_file" type="file" class="form-control mb-3">
 
   <button class="btn btn-secondary w-100">
     Upload Book
@@ -195,19 +223,19 @@ setTimeout(() => {
 
 <form method="POST">
     <?php if($editMode): ?>
-      <input type="hidden" name="id" value="<?= $book['book_id'] ?>">
+      <input type="hidden" name="id" value="<?= e($book['book_id']) ?>">
     <?php endif; ?>
     <input name="title" class="form-control mb-2" placeholder="Book Name"
-    value="<?= $editMode ? $book['title'] : '' ?>" required>
+    value="<?= $editMode ? e($book['title']) : '' ?>" required>
 
     <input name="author" class="form-control mb-2" placeholder="Author"
-    value="<?= $editMode ? $book['author'] : '' ?>" required>
+    value="<?= $editMode ? e($book['author']) : '' ?>" required>
 
     <input name="price" type="number" class="form-control mb-2" placeholder="Price"
-    value="<?= $editMode ? $book['price_omr'] : '' ?>" required>
+    value="<?= $editMode ? e($book['price_omr']) : '' ?>" required>
 
     <input name="category" class="form-control mb-2" placeholder="Category"
-    value="<?= $editMode ? $book['category'] : '' ?>" required>
+    value="<?= $editMode ? e($book['category']) : '' ?>" required>
 <div class="d-flex gap-2">
   <button class="btn btn-primary w-100">
     <?= $editMode ? 'Update Book' : 'Add Book' ?>
@@ -239,16 +267,16 @@ $result = $conn->query("SELECT * FROM books");
 while($row = $result->fetch_assoc()) {
 ?>
 <tr>
-<td><?= $row['title'] ?></td>
-<td><?= $row['author'] ?></td>
-<td><?= $row['price_omr'] ?? '0' ?></td>
-<td><?= $row['category'] ?></td>
+<td><?= e($row['title']) ?></td>
+<td><?= e($row['author']) ?></td>
+<td><?= e($row['price_omr'] ?? '0') ?></td>
+<td><?= e($row['category']) ?></td>
 <td>
-<a href="admin.php?edit=<?= $row['book_id'] ?>" class="btn btn-warning btn-sm">
+<a href="admin.php?edit=<?= e($row['book_id']) ?>" class="btn btn-warning btn-sm">
     ✏️ Edit
 </a>
 
-<a href="delete.php?type=book&id=<?= $row['book_id'] ?>" 
+<a href="delete.php?type=book&id=<?= e($row['book_id']) ?>" 
    class="btn btn-danger btn-sm"
    onclick="return confirm('Are you sure you want to delete this book?')">
    🗑 Delete
@@ -270,17 +298,20 @@ while($row = $result->fetch_assoc()) {
 <form method="POST">
 
 <?php if($userEditMode): ?>
-<input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+<input type="hidden" name="user_id" value="<?= e($user['id']) ?>">
 <?php endif; ?>
 
 <input name="user_name" class="form-control mb-2" placeholder="User Name"
-value="<?= $userEditMode ? $user['name'] : '' ?>" required>
+value="<?= $userEditMode ? e($user['name']) : '' ?>" required>
 
 <input name="user_age" type="number" class="form-control mb-2" placeholder="Age"
-value="<?= $userEditMode ? $user['age'] : '' ?>" required>
+value="<?= $userEditMode ? e($user['age']) : '' ?>" required>
 
 <input name="user_role" class="form-control mb-2" placeholder="Role"
-value="<?= $userEditMode ? $user['role'] : '' ?>" required>
+value="<?= $userEditMode ? e($user['role']) : '' ?>" required>
+
+<input name="user_email" type="email" class="form-control mb-2" placeholder="Email"
+value="<?= $userEditMode ? e($user['email']) : '' ?>" required>
 
 <div class="d-flex gap-2">
   <button class="btn btn-success w-100">
@@ -302,6 +333,7 @@ value="<?= $userEditMode ? $user['role'] : '' ?>" required>
 <th>Name</th>
 <th>Age</th>
 <th>Role</th>
+<th>Email</th>
 <th>Action</th>
 </tr>
 </thead>
@@ -313,15 +345,16 @@ $users = $conn->query("SELECT * FROM users");
 while($u = $users->fetch_assoc()) {
 ?>
 <tr>
-<td><?= $u['name'] ?></td>
-<td><?= $u['age'] ?></td>
-<td><?= $u['role'] ?></td>
+<td><?= e($u['name']) ?></td>
+<td><?= e($u['age']) ?></td>
+<td><?= e($u['role']) ?></td>
+<td><?= e($u['email'] ?? '') ?></td>
 <td>
-<a href="admin.php?edit_user=<?= $u['id'] ?>" class="btn btn-warning btn-sm">
+<a href="admin.php?edit_user=<?= e($u['id']) ?>" class="btn btn-warning btn-sm">
     ✏️ Edit
 </a>
 
-<a href="delete.php?type=user&id=<?= $u['id'] ?>" 
+<a href="delete.php?type=user&id=<?= e($u['id']) ?>" 
    class="btn btn-danger btn-sm"
    onclick="return confirm('Are you sure you want to delete this user?')">
    🗑 Delete

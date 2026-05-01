@@ -1,21 +1,46 @@
 <?php
 include "db.php";
-
-$results = [];
-
-$query = "SELECT * FROM books WHERE 1";
-
-if (!empty($_GET['title'])) {
-    $title = $_GET['title'];
-    $query .= " AND title LIKE '%$title%'";
+function e($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8");
 }
 
-if (!empty($_GET['category'])) {
-    $category = $_GET['category'];
-    $query .= " AND category='$category'";
+$title = trim($_GET['title'] ?? "");
+$category = trim($_GET['category'] ?? "");
+$categories = ["Science", "Technology", "History", "Business", "Literature"];
+
+$query = "
+SELECT b.*,
+       CASE WHEN EXISTS (
+           SELECT 1
+           FROM borrow br
+           WHERE br.book_id = b.book_id
+             AND (br.return_date IS NULL OR br.return_date >= CURDATE())
+       ) THEN 'Borrowed' ELSE 'Available' END AS status
+FROM books b
+WHERE 1
+";
+
+$types = "";
+$params = [];
+
+if ($title !== "") {
+    $query .= " AND b.title LIKE ?";
+    $types .= "s";
+    $params[] = "%" . $title . "%";
 }
 
-$results = $conn->query($query);
+if ($category !== "" && in_array($category, $categories, true)) {
+    $query .= " AND b.category = ?";
+    $types .= "s";
+    $params[] = $category;
+}
+
+$stmt = $conn->prepare($query);
+if ($types !== "") {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$results = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +126,7 @@ $results = $conn->query($query);
     <div class="mb-3">
       <label class="form-label">Book Title</label>
         <input type="text" name="title" class="form-control"
-        value="<?= $_GET['title'] ?? '' ?>"
+        value="<?= e($_GET['title'] ?? '') ?>"
         placeholder="Enter book title">
     </div>
 
@@ -117,18 +142,6 @@ $results = $conn->query($query);
         </select>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Availability</label><br>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="ebook">
-            <label class="form-check-label">eBook Only</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="available">
-            <label class="form-check-label">Available Now</label>
-        </div>
-    </div>
-
     <button class="btn btn-primary w-100">Search Books</button>
 
 </form>
@@ -141,15 +154,12 @@ $results = $conn->query($query);
 <h2 class="text-center mb-4">Search Results</h2>
 <div class="alert alert-info text-center fw-bold">
 <?php
-$title = $_GET['title'] ?? '';
-$category = $_GET['category'] ?? '';
-
 if (!empty($title) && !empty($category)) {
-    echo "Search results for: <strong>" . htmlspecialchars($title) . "</strong> in <strong>" . htmlspecialchars($category) . "</strong>";
+    echo "Search results for: <strong>" . e($title) . "</strong> in <strong>" . e($category) . "</strong>";
 } elseif (!empty($title)) {
-    echo "Search results for: <strong>" . htmlspecialchars($title) . "</strong>";
+    echo "Search results for: <strong>" . e($title) . "</strong>";
 } elseif (!empty($category)) {
-    echo "Showing category: <strong>" . htmlspecialchars($category) . "</strong>";
+    echo "Showing category: <strong>" . e($category) . "</strong>";
 } else {
     echo "Showing all books";
 }
@@ -174,15 +184,15 @@ if (!empty($title) && !empty($category)) {
 
     <?php while($row = $results->fetch_assoc()): ?>
     <tr>
-        <td><?= $row['title'] ?></td>
-        <td><?= $row['author'] ?></td>
-        <td><?= $row['category'] ?></td>
-        <td><?= rand(0,1) ? 'Available' : 'Borrowed' ?></td>
+        <td><?= e($row['title']) ?></td>
+        <td><?= e($row['author']) ?></td>
+        <td><?= e($row['category']) ?></td>
+        <td><?= e($row['status']) ?></td>
     </tr>
 
     <tr>
         <td colspan="4">
-            <?= $row['summary'] ?? 'No description available' ?>
+            <?= e($row['summary'] ?? 'No description available') ?>
         </td>
     </tr>
     <?php endwhile; ?>
@@ -219,3 +229,4 @@ if (!empty($title) && !empty($category)) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php $stmt->close(); ?>
