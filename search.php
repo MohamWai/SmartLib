@@ -1,3 +1,23 @@
+<?php
+include "db.php";
+
+$results = [];
+
+$query = "SELECT * FROM books WHERE 1";
+
+if (!empty($_GET['title'])) {
+    $title = $_GET['title'];
+    $query .= " AND title LIKE '%$title%'";
+}
+
+if (!empty($_GET['category'])) {
+    $category = $_GET['category'];
+    $query .= " AND category='$category'";
+}
+
+$results = $conn->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +59,7 @@
               <a href="index.html" class="nav-link ">Home</a>
             </li>
             <li class="nav-item">
-              <a href="search.html" class="nav-link active">Search</a>
+              <a href="search.php" class="nav-link active">Search</a>
             </li>
             <li class="nav-item">
               <a href="reports.html" class="nav-link">Reports</a>
@@ -57,7 +77,7 @@
               <a href="account.html" class="nav-link">Account</a>
             </li>
             <li class="nav-item">
-              <a href="admin.html" class="nav-link">Admin</a>
+              <a href="admin.php" class="nav-link">Admin</a>
             </li>
           </ul>
         </div>
@@ -76,21 +96,24 @@
 <div class="row justify-content-center">
 <div class="col-md-6">
 
-<form class="p-4 border rounded bg-white" action="https://httpbin.org/post" method="post">
+<form class="p-4 border rounded bg-white" method="GET">
 
     <div class="mb-3">
-        <label class="form-label">Book Title</label>
-        <input type="text" name="title" class="form-control" placeholder="Enter book title">
+      <label class="form-label">Book Title</label>
+        <input type="text" name="title" class="form-control"
+        value="<?= $_GET['title'] ?? '' ?>"
+        placeholder="Enter book title">
     </div>
 
     <div class="mb-3">
         <label class="form-label">Category</label>
         <select name="category" class="form-select">
-            <option>Science</option>
-            <option>Technology</option>
-            <option>History</option>
-            <option>Business</option>
-            <option>Literature</option>
+            <option value="">All Categories</option>
+            <option <?= (($_GET['category'] ?? '')=='Science')?'selected':'' ?>>Science</option>
+            <option <?= (($_GET['category'] ?? '')=='Technology')?'selected':'' ?>>Technology</option>
+            <option <?= (($_GET['category'] ?? '')=='History')?'selected':'' ?>>History</option>
+            <option <?= (($_GET['category'] ?? '')=='Business')?'selected':'' ?>>Business</option>
+            <option <?= (($_GET['category'] ?? '')=='Literature')?'selected':'' ?>>Literature</option>
         </select>
     </div>
 
@@ -116,8 +139,21 @@
 <hr>
 
 <h2 class="text-center mb-4">Search Results</h2>
-<div id="searchMessage" class="alert alert-info text-center fw-bold">
-  Showing available books
+<div class="alert alert-info text-center fw-bold">
+<?php
+$title = $_GET['title'] ?? '';
+$category = $_GET['category'] ?? '';
+
+if (!empty($title) && !empty($category)) {
+    echo "Search results for: <strong>" . htmlspecialchars($title) . "</strong> in <strong>" . htmlspecialchars($category) . "</strong>";
+} elseif (!empty($title)) {
+    echo "Search results for: <strong>" . htmlspecialchars($title) . "</strong>";
+} elseif (!empty($category)) {
+    echo "Showing category: <strong>" . htmlspecialchars($category) . "</strong>";
+} else {
+    echo "Showing all books";
+}
+?>
 </div>
 
 <!-- TABLE -->
@@ -134,50 +170,38 @@
 
 <tbody>
 
-<tr>
-<td>Introduction to Algorithms</td>
-<td>Thomas Cormen</td>
-<td>Technology</td>
-<td>Available</td>
-</tr>
+<?php if ($results && $results->num_rows > 0): ?>
 
-<tr>
-<td colspan="4">
-A widely used computer science textbook covering algorithms, data structures, and problem-solving techniques.
-</td>
-</tr>
+    <?php while($row = $results->fetch_assoc()): ?>
+    <tr>
+        <td><?= $row['title'] ?></td>
+        <td><?= $row['author'] ?></td>
+        <td><?= $row['category'] ?></td>
+        <td><?= rand(0,1) ? 'Available' : 'Borrowed' ?></td>
+    </tr>
 
-<tr>
-<td>Modern Physics</td>
-<td>Halliday</td>
-<td>Science</td>
-<td>Borrowed</td>
-</tr>
+    <tr>
+        <td colspan="4">
+            <?= $row['summary'] ?? 'No description available' ?>
+        </td>
+    </tr>
+    <?php endwhile; ?>
 
-<tr>
-<td colspan="4">
-This book explains the fundamental concepts of modern physics including relativity and quantum theory.
-</td>
-</tr>
+<?php else: ?>
 
-<tr>
-<td>Business Management</td>
-<td>John Smith</td>
-<td>Business</td>
-<td>Available</td>
-</tr>
+    <tr>
+        <td colspan="4" class="text-center text-danger">
+            No books found
+        </td>
+    </tr>
 
-<tr>
-<td colspan="4">
-An introduction to leadership, management strategies, and organizational planning.
-</td>
-</tr>
+<?php endif; ?>
 
 </tbody>
 </table>
 </div>
 
-</div>
+
 
 <!-- FOOTER -->
     <footer class="bg-primary text-white py-4 mt-auto">
