@@ -1,4 +1,4 @@
-//fun page code (jess the sentence)
+//fun page code (guess the sentence)
 const sentences = [
         "Reading opens the door to new worlds",
         "A library is a treasure chest of knowledge",
@@ -127,225 +127,234 @@ function updateTime() {
 
 
 
-// ===== Classes =====
-class Product {
-    constructor(name, price, category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
-}
-
-class Student {
-    constructor(name, age, major) {
-        this.name = name;
-        this.age = age;
-        this.major = major;
-    }
-}
-
-// ===== Arrays =====
-let products = [];
-let students = [];
-
-// ===== Elements =====
-const pName = document.getElementById("pName");
-const pPrice = document.getElementById("pPrice");
-const pCat = document.getElementById("pCat");
-
-const sName = document.getElementById("sName");
-const sAge = document.getElementById("sAge");
-const sMajor = document.getElementById("sMajor");
-
-// ===== Validation =====
-function showError(id, msg) {
-    document.getElementById(id).classList.add("is-invalid");
-    document.getElementById(id + "Error").innerText = msg;
-}
-
-function clearErrors(ids) {
-    ids.forEach(id => {
-        document.getElementById(id).classList.remove("is-invalid");
-        document.getElementById(id + "Error").innerText = "";
-    });
-}
-
-function validateProduct(n, p, c) {
-    clearErrors(["pName", "pPrice", "pCat"]);
-    let valid = true;
-
-    if (n.trim() === "" || !isNaN(n)) {
-        showError("pName", "Enter valid name");
-        valid = false;
+// ===== admin.html demo only (matches DB column names) — skipped on admin.php =====
+(function () {
+    function showError(id, msg) {
+        const el = document.getElementById(id);
+        const err = document.getElementById(id + "Error");
+        if (!el || !err) return;
+        el.classList.add("is-invalid");
+        err.innerText = msg;
     }
 
-    if (p === "" || isNaN(p) || p <= 0 || p > 10000) {
-        showError("pPrice", "Price must be 1-10000");
-        valid = false;
+    function clearErrors(ids) {
+        ids.forEach((id) => {
+            const el = document.getElementById(id);
+            const err = document.getElementById(id + "Error");
+            if (el) el.classList.remove("is-invalid");
+            if (err) err.innerText = "";
+        });
     }
 
-    if (c.trim() === "" || !isNaN(c)) {
-        showError("pCat", "Enter valid category");
-        valid = false;
+    class BookRow {
+        constructor(title, author, category, summary) {
+            this.title = title;
+            this.author = author;
+            this.category = category;
+            this.summary = summary;
+        }
     }
 
-    return valid;
-}
-
-function validateStudent(n, a, m) {
-    clearErrors(["sName", "sAge", "sMajor"]);
-    let valid = true;
-
-    if (n.trim() === "" || !isNaN(n)) {
-        showError("sName", "Enter valid name");
-        valid = false;
+    class UserRow {
+        constructor(name, age, role, email) {
+            this.name = name;
+            this.age = age;
+            this.role = role;
+            this.email = email;
+        }
     }
 
-    if (a === "" || isNaN(a) || a < 16 || a > 100) {
-        showError("sAge", "Age must be 16-60");
-        valid = false;
-    }
+    let books = [];
+    let users = [];
 
-    if (m.trim() === "" || !isNaN(m)) {
-        showError("sMajor", "Enter valid major");
-        valid = false;
-    }
+    const addBookBtn = document.getElementById("addBookBtn");
+    const bTitle = document.getElementById("bTitle");
+    const bAuthor = document.getElementById("bAuthor");
+    const bCat = document.getElementById("bCat");
+    const bSummary = document.getElementById("bSummary");
+    const bookList = document.getElementById("bookList");
 
-    return valid;
-}
+    if (addBookBtn && bTitle && bookList) {
+        function validateBook(t, au, c) {
+            clearErrors(["bTitle", "bAuthor", "bCat", "bSummary"]);
+            let valid = true;
+            if (t.trim() === "" || !isNaN(t)) {
+                showError("bTitle", "Enter a valid title");
+                valid = false;
+            }
+            if (au.trim() === "" || !isNaN(au)) {
+                showError("bAuthor", "Enter a valid author");
+                valid = false;
+            }
+            if (c.trim() === "" || !isNaN(c)) {
+                showError("bCat", "Enter a valid category");
+                valid = false;
+            }
+            return valid;
+        }
 
-// ===== Add =====
-document.getElementById("addProductBtn").onclick = function () {
-    let n = pName.value;
-    let p = Number(pPrice.value);
-    let c = pCat.value;
-
-    if (!validateProduct(n, p, c)) return;
-
-    products.push(new Product(n, p, c));
-    showProducts();
-
-    pName.value = "";
-    pPrice.value = "";
-    pCat.value = "";
-};
-
-document.getElementById("addStudentBtn").onclick = function () {
-    let n = sName.value;
-    let a = Number(sAge.value);
-    let m = sMajor.value;
-
-    if (!validateStudent(n, a, m)) return;
-
-    students.push(new Student(n, a, m));
-    showStudents();
-
-    sName.value = "";
-    sAge.value = "";
-    sMajor.value = "";
-};
-
-// ===== Delete =====
-function deleteProduct(index) {
-    if (confirm("Are you sure?")) {
-        products.splice(index, 1);
-        showProducts();
-    }
-}
-
-function deleteStudent(index) {
-    if (confirm("Are you sure?")) {
-        students.splice(index, 1);
-        showStudents();
-    }
-}
-
-// ===== Display =====
-function showProducts() {
-    let txt = "";
-
-    products.forEach((p, index) => {
-        txt += `
+        function showBooks() {
+            let txt = "";
+            books.forEach((p, index) => {
+                const sum =
+                    p.summary.length > 40 ? p.summary.slice(0, 40) + "…" : p.summary;
+                txt += `
         <tr>
-            <td>${p.name}</td>
-            <td>${p.price}</td>
+            <td>${p.title}</td>
+            <td>${p.author}</td>
             <td>${p.category}</td>
+            <td class="small text-start">${sum}</td>
             <td>
-                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${index})">
+                <button type="button" class="btn btn-danger btn-sm" data-book-idx="${index}">
                     Delete
                 </button>
             </td>
         </tr>`;
-    });
+            });
+            bookList.innerHTML = txt;
+            bookList.querySelectorAll("[data-book-idx]").forEach((btn) => {
+                btn.onclick = function () {
+                    const i = Number(btn.getAttribute("data-book-idx"));
+                    if (confirm("Remove this row?")) {
+                        books.splice(i, 1);
+                        showBooks();
+                    }
+                };
+            });
+        }
 
-    document.getElementById("productList").innerHTML = txt;
-}
+        addBookBtn.onclick = function () {
+            const t = bTitle.value;
+            const au = bAuthor.value;
+            const c = bCat.value;
+            const s = bSummary.value.trim();
+            if (!validateBook(t, au, c)) return;
+            books.push(new BookRow(t.trim(), au.trim(), c.trim(), s));
+            showBooks();
+            bTitle.value = "";
+            bAuthor.value = "";
+            bCat.value = "";
+            bSummary.value = "";
+        };
+    }
 
-function showStudents() {
-    let txt = "";
+    const addStudentBtn = document.getElementById("addStudentBtn");
+    const sName = document.getElementById("sName");
+    const sAge = document.getElementById("sAge");
+    const sRole = document.getElementById("sRole");
+    const sEmail = document.getElementById("sEmail");
+    const studentList = document.getElementById("studentList");
 
-    students.forEach((s, index) => {
-        txt += `
+    if (addStudentBtn && sName && studentList) {
+        function validateUserRow(n, ageStr, role, email) {
+            clearErrors(["sName", "sAge", "sRole", "sEmail"]);
+            let valid = true;
+            if (n.trim() === "" || !isNaN(n)) {
+                showError("sName", "Enter a valid name");
+                valid = false;
+            }
+            if (ageStr.trim() !== "") {
+                const a = Number(ageStr);
+                if (isNaN(a) || a < 1 || a > 120) {
+                    showError("sAge", "Age must be 1–120 or leave blank (NULL)");
+                    valid = false;
+                }
+            }
+            if (role.trim() === "" || !isNaN(role)) {
+                showError("sRole", "Enter a valid role");
+                valid = false;
+            }
+            if (email.trim() === "" || !email.includes("@")) {
+                showError("sEmail", "Enter a valid email");
+                valid = false;
+            }
+            return valid;
+        }
+
+        function showUserRows() {
+            let txt = "";
+            users.forEach((u, index) => {
+                const ageDisp =
+                    u.age === "" || u.age == null ? "—" : String(u.age);
+                txt += `
         <tr>
-            <td>${s.name}</td>
-            <td>${s.age}</td>
-            <td>${s.major}</td>
+            <td>${u.name}</td>
+            <td>${ageDisp}</td>
+            <td>${u.role}</td>
+            <td class="small">${u.email}</td>
             <td>
-                <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">
+                <button type="button" class="btn btn-danger btn-sm" data-user-idx="${index}">
                     Delete
                 </button>
             </td>
         </tr>`;
-    });
+            });
+            studentList.innerHTML = txt;
+            studentList.querySelectorAll("[data-user-idx]").forEach((btn) => {
+                btn.onclick = function () {
+                    const i = Number(btn.getAttribute("data-user-idx"));
+                    if (confirm("Remove this row?")) {
+                        users.splice(i, 1);
+                        showUserRows();
+                    }
+                };
+            });
+        }
 
-    document.getElementById("studentList").innerHTML = txt;
-}
-// ===== Upload Validation =====
-const uTitle = document.getElementById("uTitle");
-const uAuthor = document.getElementById("uAuthor");
-const uSummary = document.getElementById("uSummary");
-const uFile = document.getElementById("uFile");
-
-document.getElementById("uploadBtn").onclick = function () {
-
-    clearErrors(["uTitle", "uAuthor", "uSummary", "uFile"]);
-
-    let valid = true;
-
-    let t = uTitle.value;
-    let a = uAuthor.value;
-    let s = uSummary.value;
-    let f = uFile.value;
-
-    if (t.trim() === "" || !isNaN(t)) {
-        showError("uTitle", "Enter valid title");
-        valid = false;
+        addStudentBtn.onclick = function () {
+            const n = sName.value;
+            const ageStr = sAge.value.trim();
+            const role = sRole ? sRole.value : "";
+            const email = sEmail ? sEmail.value : "";
+            if (!validateUserRow(n, ageStr, role, email)) return;
+            const ageVal = ageStr === "" ? "" : Number(ageStr);
+            users.push(new UserRow(n.trim(), ageVal, role.trim(), email.trim()));
+            showUserRows();
+            sName.value = "";
+            sAge.value = "";
+            if (sRole) sRole.value = "";
+            if (sEmail) sEmail.value = "";
+        };
     }
 
-    if (a.trim() === "" || !isNaN(a)) {
-        showError("uAuthor", "Enter valid author");
-        valid = false;
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uTitle = document.getElementById("uTitle");
+    const uAuthor = document.getElementById("uAuthor");
+    const uCategory = document.getElementById("uCategory");
+    const uSummary = document.getElementById("uSummary");
+    const uFile = document.getElementById("uFile");
+
+    if (uploadBtn && uTitle && uAuthor) {
+        uploadBtn.onclick = function () {
+            clearErrors(["uTitle", "uAuthor", "uCategory", "uSummary", "uFile"]);
+            let valid = true;
+            const t = uTitle.value;
+            const a = uAuthor.value;
+            const cat = uCategory ? uCategory.value : "";
+            const s = uSummary ? uSummary.value : "";
+
+            if (t.trim() === "" || !isNaN(t)) {
+                showError("uTitle", "Enter a valid title");
+                valid = false;
+            }
+            if (a.trim() === "" || !isNaN(a)) {
+                showError("uAuthor", "Enter a valid author");
+                valid = false;
+            }
+            if (!uCategory || cat.trim() === "" || !isNaN(cat)) {
+                if (uCategory) showError("uCategory", "Category is required");
+                valid = false;
+            }
+            if (!valid) return;
+
+            alert("Demo only — use admin.php to save to the database.");
+            uTitle.value = "";
+            uAuthor.value = "";
+            if (uCategory) uCategory.value = "";
+            if (uSummary) uSummary.value = "";
+            if (uFile) uFile.value = "";
+        };
     }
-
-    if (s.trim() === "" || s.length < 10) {
-        showError("uSummary", "Summary too short");
-        valid = false;
-    }
-
-    if (f === "") {
-        showError("uFile", "Please choose a file");
-        valid = false;
-    }
-
-    if (!valid) return;
-
-    alert("Book uploaded successfully!");
-
-    // clear inputs
-    uTitle.value = "";
-    uAuthor.value = "";
-    uSummary.value = "";
-    uFile.value = "";
-};
+})();
 
 

@@ -1,18 +1,18 @@
 <?php
 include "db.php";
 
-$id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
-$title = trim($_POST['title'] ?? "");
-$author = trim($_POST['author'] ?? "");
-$category = trim($_POST['category'] ?? "");
-$price = (float) ($_POST['price'] ?? 0);
+$id = (int) $_POST['id'];
+$title = $conn->real_escape_string($_POST['title']);
+$author = $conn->real_escape_string($_POST['author']);
+$category = $conn->real_escape_string($_POST['category']);
+$summary = $conn->real_escape_string($_POST['summary'] ?? '');
 
-if ($id > 0 && $title !== "" && $author !== "" && $category !== "") {
-    $stmt = $conn->prepare("UPDATE books SET title = ?, author = ?, category = ?, price_omr = ? WHERE book_id = ?");
-    $stmt->bind_param("sssdi", $title, $author, $category, $price, $id);
-    $stmt->execute();
-    $stmt->close();
-}
+$conn->query("UPDATE books SET 
+title='$title', 
+author='$author', 
+category='$category',
+summary='$summary'
+WHERE book_id=$id");
 
 header("Location: admin.php");
 ?>

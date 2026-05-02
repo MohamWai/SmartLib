@@ -1,29 +1,16 @@
 <?php
 include "db.php";
 
-$type = $_GET['type'] ?? "";
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+$type = $_GET['type'];
+$id = $_GET['id'];
 
-if ($id <= 0) {
-    header("Location: admin.php");
-    exit();
-}
-
-if ($type === "book") {
-    $stmt = $conn->prepare("DELETE FROM books WHERE book_id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+if ($type == "book") {
+    $conn->query("DELETE FROM books WHERE book_id = $id");
     header("Location: admin.php?msg=deleted");
 }
-elseif ($type === "user") {
-    $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+elseif ($type == "user") {
+    $conn->query("DELETE FROM users WHERE id = $id");
     header("Location: admin.php?msg=user_deleted");
-} else {
-    header("Location: admin.php");
 }
 exit();
 ?>

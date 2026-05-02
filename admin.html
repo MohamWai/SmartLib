@@ -12,53 +12,63 @@
 <body class="bg-light">
 
 
-<nav class="navbar navbar-expand-lg navbar-style navbar-dark" style="background-color: rgb(0, 54, 82);">
-      <div class="container">
-        <a href="index.html" class="navbar-brand">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-style shadow-sm" style="background-color: rgb(0, 54, 82);">
+      <div class="container-fluid px-3 px-lg-4">
+        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 text-white text-decoration-none">
           <img
             src="./assets/SmartLib_logo.jpg"
-            alt="Logo"
+            alt="SmartLib logo"
             width="40"
             height="30"
             class="d-inline-block align-text-top"
           />
-          SmartLib</a>
+          <span class="fw-semibold">SmartLib</span>
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
+          data-bs-target="#smartlibNavbar"
+          aria-controls="smartlibNavbar"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto ms-lg-0 me-lg-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="smartlibNavbar">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2 flex-lg-row flex-lg-nowrap align-items-lg-center">
             <li class="nav-item">
-              <a href="index.html" class="nav-link ">Home</a>
+              <a href="index.html" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-              <a href="search.html" class="nav-link">Search</a>
+              <a href="search.php" class="nav-link">Search</a>
             </li>
             <li class="nav-item">
-              <a href="reports.html" class="nav-link">Reports</a>
+              <a href="reports.php" class="nav-link">Reports</a>
             </li>
             <li class="nav-item">
-              <a href="about.html" class="nav-link ">About</a>
+              <a href="about.html" class="nav-link">About</a>
             </li>
             <li class="nav-item">
-              <a href="contact.html" class="nav-link">Contact Us</a>
+              <a href="contact.php" class="nav-link">Contact Us</a>
             </li>
             <li class="nav-item">
               <a href="signup.html" class="nav-link">Sign up</a>
             </li>
             <li class="nav-item">
-              <a href="account.html" class="nav-link">Account</a>
+              <a href="account.php" class="nav-link">Account</a>
             </li>
             <li class="nav-item">
-              <a href="admin.html" class="nav-link active">Admin</a>
+              <a href="admin.php" class="nav-link active" aria-current="page">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a href="questionaire.html" class="nav-link">Questionnaire</a>
+            </li>
+            <li class="nav-item">
+              <a href="calculator.html" class="nav-link">Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a href="fun.html" class="nav-link">Fun</a>
             </li>
           </ul>
         </div>
@@ -69,23 +79,27 @@
 
 <h2 class="text-center mb-4 fw-bold">Admin Dashboard</h2>
 
-<!-- ADD NEW BOOK -->
+<!-- Static demo only — use admin.php for real database forms -->
 <div class="card p-4 shadow mb-4">
-    <h5 class="mb-3 fw-bold text-center">Add New Book (Upload)</h5>
+    <h5 class="mb-2 fw-bold text-center">Add book (demo UI)</h5>
+    <p class="small text-muted text-center mb-3">Mirrors <code>books</code>: title, author, category, summary, optional file → file_name</p>
 
-    <input id="uTitle" class="form-control mb-2" placeholder="Book Title">
+    <input id="uTitle" class="form-control mb-2" placeholder="title">
     <div id="uTitleError" class="text-danger mb-2"></div>
 
-    <input id="uAuthor" class="form-control mb-2" placeholder="Author">
+    <input id="uAuthor" class="form-control mb-2" placeholder="author">
     <div id="uAuthorError" class="text-danger mb-2"></div>
 
-    <textarea id="uSummary" class="form-control mb-2" placeholder="Book Summary"></textarea>
+    <input id="uCategory" class="form-control mb-2" placeholder="category">
+    <div id="uCategoryError" class="text-danger mb-2"></div>
+
+    <textarea id="uSummary" class="form-control mb-2" placeholder="summary (optional)"></textarea>
     <div id="uSummaryError" class="text-danger mb-2"></div>
 
     <input id="uFile" type="file" class="form-control mb-3">
     <div id="uFileError" class="text-danger mb-2"></div>
 
-    <button id="uploadBtn" class="btn btn-secondary w-100">
+    <button type="button" id="uploadBtn" class="btn btn-secondary w-100">
         Upload Book
     </button>
 </div>
@@ -95,26 +109,33 @@
 
 <div class="col-md-6">
     <div class="card p-4 shadow mb-4">
-        <h5 class="text-center mb-3 fw-bold">Manage Books</h5>
+        <h5 class="text-center mb-2 fw-bold">Manage books (demo)</h5>
+        <p class="small text-muted text-center mb-3"><code>title</code>, <code>author</code>, <code>category</code>, <code>summary</code></p>
 
-        <input id="pName" class="form-control mb-2" placeholder="Book Name">
-        <input id="pPrice" type="number" class="form-control mb-2" placeholder="Price">
-        <input id="pCat" class="form-control mb-2" placeholder="Category">
+        <input id="bTitle" class="form-control mb-2" placeholder="title">
+        <div id="bTitleError" class="text-danger mb-2"></div>
+        <input id="bAuthor" class="form-control mb-2" placeholder="author">
+        <div id="bAuthorError" class="text-danger mb-2"></div>
+        <input id="bCat" class="form-control mb-2" placeholder="category">
+        <div id="bCatError" class="text-danger mb-2"></div>
+        <textarea id="bSummary" class="form-control mb-2" rows="2" placeholder="summary"></textarea>
+        <div id="bSummaryError" class="text-danger mb-2"></div>
 
-        <button id="addProductBtn" class="btn btn-primary w-100 mb-3">
+        <button type="button" id="addBookBtn" class="btn btn-primary w-100 mb-3">
             Add Book
         </button>
 
-        <table class="table table-bordered table-striped text-center">
+        <table class="table table-bordered table-striped text-center table-sm">
             <thead class="table-dark">
                 <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
+                    <th>title</th>
+                    <th>author</th>
+                    <th>category</th>
+                    <th>summary</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="productList"></tbody>
+            <tbody id="bookList"></tbody>
         </table>
     </div>
 </div>
@@ -122,22 +143,29 @@
 
 <div class="col-md-6">
     <div class="card p-4 shadow mb-4">
-        <h5 class="text-center mb-3 fw-bold">Manage Users</h5>
+        <h5 class="text-center mb-2 fw-bold">Manage users (demo)</h5>
+        <p class="small text-muted text-center mb-3"><code>name</code>, <code>age</code> optional, <code>role</code>, <code>email</code></p>
 
-        <input id="sName" class="form-control mb-2" placeholder="User Name">
-        <input id="sAge" type="number" class="form-control mb-2" placeholder="Age">
-        <input id="sMajor" class="form-control mb-2" placeholder="Role">
+        <input id="sName" class="form-control mb-2" placeholder="name">
+        <div id="sNameError" class="text-danger mb-2"></div>
+        <input id="sAge" type="number" class="form-control mb-2" placeholder="age (optional)">
+        <div id="sAgeError" class="text-danger mb-2"></div>
+        <input id="sRole" class="form-control mb-2" placeholder="role">
+        <div id="sRoleError" class="text-danger mb-2"></div>
+        <input id="sEmail" type="email" class="form-control mb-2" placeholder="email">
+        <div id="sEmailError" class="text-danger mb-2"></div>
 
-        <button id="addStudentBtn" class="btn btn-success w-100 mb-3">
+        <button type="button" id="addStudentBtn" class="btn btn-success w-100 mb-3">
             Add User
         </button>
 
-        <table class="table table-bordered table-striped text-center">
+        <table class="table table-bordered table-striped text-center table-sm">
             <thead class="table-dark">
                 <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Role</th>
+                    <th>name</th>
+                    <th>age</th>
+                    <th>role</th>
+                    <th>email</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -155,7 +183,7 @@
         <p class="small mb-0">
           <a href="about.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">About</a>
           <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
-          <a href="contact.html" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Contact</a>
+          <a href="contact.php" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Contact</a>
           <span class="text-white text-opacity-50 mx-2 user-select-none" aria-hidden="true">·</span>
           © 2026 SmartLib Management. All rights reserved.
         </p>
