@@ -369,49 +369,83 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      (function () {
-        'use strict';
-        const form = document.getElementById('form-3');
-        const pw1 = document.getElementById('reg-password');
-        const pw2 = document.getElementById('reg-password2');
+(function () {
+  'use strict';
 
-        function syncPasswordValidity() {
-          if (!pw1.value || !pw2.value) {
-            pw2.setCustomValidity('');
-            return;
-          }
-          if (pw1.value !== pw2.value) {
-            pw2.setCustomValidity('mismatch');
-          } else {
-            pw2.setCustomValidity('');
-          }
-        }
+  const form = document.getElementById('form-3');
 
-        pw1.addEventListener('input', syncPasswordValidity);
-        pw2.addEventListener('input', syncPasswordValidity);
+  form.addEventListener('submit', function (event) {
 
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
-          new bootstrap.Tooltip(el);
-        });
+    let valid = true;
 
-        const toastEl = document.getElementById('signupToast');
-        const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3500 }) : null;
+    let first = document.getElementById("reg-first");
+    let last = document.getElementById("reg-last");
+    let email = document.getElementById("reg-email");
+    let password = document.getElementById("reg-password");
+    let confirm = document.getElementById("reg-password2");
+    let phone = document.getElementById("reg-phone");
+    let terms = document.getElementById("terms-agree");
 
-        form.addEventListener(
-          'submit',
-          function (event) {
-            syncPasswordValidity();
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            } else {
-              if (toast) toast.show();
-            }
-            form.classList.add('was-validated');
-          },
-          false
-        );
-      })();
-    </script>
+   
+    if (first.value.trim() === "") {
+      alert("First name is required");
+      valid = false;
+    }
+
+    if (last.value.trim() === "") {
+      alert("Last name is required");
+      valid = false;
+    }
+
+    
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value)) {
+      alert("Please enter a valid email");
+      valid = false;
+    }
+
+    
+    if (password.value.length < 8) {
+      alert("Password must be at least 8 characters");
+      valid = false;
+    }
+
+  
+    if (password.value !== confirm.value) {
+      alert("Passwords do not match");
+      valid = false;
+    }
+
+    
+    if (phone.value !== "") {
+      let phonePattern = /^[0-9]{8}$/;
+      if (!phonePattern.test(phone.value)) {
+        alert("Phone number must be 8 digits");
+        valid = false;
+      }
+    }
+
+    
+    if (!terms.checked) {
+      alert("You must agree to terms");
+      valid = false;
+    }
+
+    
+    if (!valid) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+
+    
+    alert("Form submitted successfully ✅");
+
+    return true;
+
+  });
+
+})();
+</script>
   </body>
 </html>
